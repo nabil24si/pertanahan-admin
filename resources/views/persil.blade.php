@@ -43,7 +43,7 @@
                 <table class="table table-hover table-bordered">
                     <thead class="thead-cream">
                         <tr>
-                            <th>ID Persil</th>
+                            <th>Persil ID</th>
                             <th>Kode Persil</th>
                             <th>ID Pemilik</th>
                             <th>Luas (m²)</th>
