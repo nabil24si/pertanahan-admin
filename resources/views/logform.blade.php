@@ -112,10 +112,10 @@
       @endif
     <form action="{{ route('auth.store') }}" method="POST">
         @csrf
-        <label><b>Username</b></label><br>
+        <label><b>USERNAME</b></label><br>
         <input type="text" name="username" value="{{ old('username') }}"><br><br>
 
-        <label><b>Password</b></label><br>
+        <label><b></b></label><br>
         <input type="password" name="password" value="{{ old('password') }}"><br><br>
 
         <button type="submit">Login</button>

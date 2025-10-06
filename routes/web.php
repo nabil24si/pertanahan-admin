@@ -17,6 +17,23 @@ Route::get("/persil",[PersilController:: class, 'index']);
 /**route untuk login dan proses login**/
 Route::get('/auth', [AuthController::class, 'index'])->name('auth.index');
 Route::post('/auth/store', [AuthController::class, 'store'])->name('auth.store');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Route::get('/tampilanlogin', function () {
     return view('tampilanlogin');
 })->name('tampilanlogin');
