@@ -115,7 +115,7 @@
         <label><b>USERNAME</b></label><br>
         <input type="text" name="username" value="{{ old('username') }}"><br><br>
 
-        <label><b></b></label><br>
+        <label><b></b>PASSWORD</label><br>
         <input type="password" name="password" value="{{ old('password') }}"><br><br>
 
         <button type="submit">Login</button>

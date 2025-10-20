@@ -41,7 +41,7 @@ class AuthController extends Controller
     $data['username'] = $request->username;
     $data['password'] = $request->password;
 
-return view('tampilanlogin', $data);
+    return view('admin.dashboard', $data);
     }
 
     /**
