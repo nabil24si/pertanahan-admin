@@ -25918,13 +25918,13 @@ dl li {
   }
   .sidebar-offcanvas.active {
     right: 0;
-   
+
   }
 }
 /* Layouts */
 .navbar.fixed-top + .page-body-wrapper {
   padding-top: 70px;
-  
+
 }
 
 @media (min-width: 992px) {
