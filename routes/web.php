@@ -8,7 +8,7 @@ use App\Http\Controllers\WargaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.auth.login');
 });
 
 Route::resource('auth', AuthController::class);

@@ -1,10 +1,8 @@
 @extends('layouts.admin.applog')
 @section('content')
-    <div class="container-scroller">
-        <div class="container-fluid page-body-wrapper full-page-wrapper">
-            <div class="content-wrapper d-flex align-items-center auth">
-                <div class="row flex-grow">
-                    <div class="col-lg-4 mx-auto">
+
+                    <div class="col-lg-5 col-md-8 col-sm-10 mx-auto">
+
                         <div class="auth-form-light text-left p-5">
                             <div class="brand-logo text-center mb-3">
                                 <img src="{{ asset('assets/images/logo.svg') }}" alt="logo">
@@ -61,9 +59,5 @@
 
                         </div>
                     </div>
-                </div>
-            </div>
-            <!-- content-wrapper ends -->
-        </div>
-    </div>
+
 @endsection

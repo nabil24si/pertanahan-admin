@@ -12,7 +12,7 @@ class JenisPenggunaanController extends Controller
     public function index()
     {
          $data['dataJenisPenggunaan'] = JenisPenggunaan::all();
-		return view('admin.jenispenggunaan.data-jenispenggunaan',$data);
+		return view('pages.jenispenggunaan.index',$data);
     }
 
     /**
@@ -20,7 +20,7 @@ class JenisPenggunaanController extends Controller
      */
     public function create()
     {
-       return view('admin.jenispenggunaan.create-jenispenggunaan');
+       return view('pages.jenispenggunaan.create');
     }
 
     /**
@@ -34,7 +34,7 @@ class JenisPenggunaanController extends Controller
 ]);
 
 $jenisPenggunaan = JenisPenggunaan::create($validated);
-return redirect()->route('jenispenggunaan.index')->with('success', 'Penambahan Data Berhasil!');   
+return redirect()->route('jenispenggunaan.index')->with('success', 'Penambahan Data Berhasil!');
     }
 
     /**
@@ -42,7 +42,7 @@ return redirect()->route('jenispenggunaan.index')->with('success', 'Penambahan D
      */
     public function show(string $id)
     {
-      
+
     }
 
     /**
@@ -51,7 +51,7 @@ return redirect()->route('jenispenggunaan.index')->with('success', 'Penambahan D
     public function edit(string $id)
     {
          $data['dataJenisPenggunaan'] = JenisPenggunaan::findOrFail($id);
-    return view('admin.jenispenggunaan.edit-jenispenggunaan', $data);
+    return view('pages.jenispenggunaan.edit', $data);
     }
 
     /**

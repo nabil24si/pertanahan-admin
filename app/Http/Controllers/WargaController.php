@@ -13,7 +13,7 @@ class WargaController extends Controller
     public function index()
     {
         $data['dataWarga'] = Warga::all();
-		return view('admin.warga.data-warga',$data);
+		return view('pages.warga.index',$data);
 
     }
 
@@ -22,17 +22,17 @@ class WargaController extends Controller
      */
     public function create()
     {
-        
-        return view('admin.warga.create-warga');
+
+        return view('pages.warga.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    
+
     public function store(Request $request)
     {
-        
+
         $validated = $request->validate([
             'no_ktp'        => 'required|string|max:20|unique:warga,no_ktp',
             'nama'          => 'required|string|max:100',
@@ -61,9 +61,9 @@ class WargaController extends Controller
     public function edit(string $id)
     {
         $data['dataWarga'] = Warga::findOrFail($id);
-    return view('admin.warga.edit-warga', $data);
+    return view('pages.warga.edit', $data);
 }
-    
+
 
     /**
      * Update the specified resource in storage.
