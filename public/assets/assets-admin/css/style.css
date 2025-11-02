@@ -26291,27 +26291,24 @@ dl li {
   flex-grow: 1;
 }
 
-.whatsapp-float {
-    position: fixed;
-    width: 55px;
-    height: 55px;
-    bottom: 25px;
-    right: 25px;
-    background-color: #25D366;
-    color: #FFF;
-    border-radius: 50px;
-    text-align: center;
-    font-size: 24px;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
-    z-index: 1000;
-    transition: transform 0.3s ease;
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#25d366;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+  font-size:30px;
+	box-shadow: 2px 2px 3px #999;
+  z-index:100;
 }
-.whatsapp-float:hover {
-    transform: scale(1.1);
-}
-.whatsapp-float img {
-    margin-top: 6px;
-}
+
+.my-float{
+	margin-top:16px;
+}   
 
 
 /*# sourceMappingURL=maps/style.css.map */
