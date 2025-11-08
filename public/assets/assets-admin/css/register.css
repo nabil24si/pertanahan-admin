@@ -1,0 +1,141 @@
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            margin: 0;
+            min-height: 100vh;
+            color: #fff;
+            background: #121212;
+        }
+
+        .left-section {
+            flex: 1;
+            background-color: #1E1E2F;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .register-box {
+            width: 100%;
+            max-width: 400px;
+            background: #23233B;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .register-box h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .register-box p {
+            text-align: center;
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 25px;
+        }
+
+        .register-box a {
+            color: #7b5dfb;
+            text-decoration: none;
+        }
+
+        .register-box a:hover {
+            text-decoration: underline;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #2D2D44;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .form-group input::placeholder {
+            color: #aaa;
+        }
+
+        .btn-register {
+            width: 100%;
+            background-color: #7b5dfb;
+            border: none;
+            padding: 12px;
+            color: white;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn-register:hover {
+            background-color: #6847f2;
+        }
+
+        .bottom-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #bbb;
+        }
+
+        /* Gambar kanan */
+        .right-section {
+            flex: 1;
+            background: url('https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=900&q=80') no-repeat center center/cover;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+            padding: 40px;
+        }
+
+        .right-section::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .right-section h1,
+        .right-section p {
+            position: relative;
+            z-index: 1;
+        }
+
+        .right-section h1 {
+            font-size: 26px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .right-section p {
+            font-size: 15px;
+            color: #ddd;
+        }
+
+        @media(max-width: 900px) {
+            body {
+                flex-direction: column-reverse;
+            }
+
+            .right-section {
+                height: 250px;
+            }
+        }
+

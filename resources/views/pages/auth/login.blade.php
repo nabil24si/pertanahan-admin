@@ -1,63 +1,47 @@
-@extends('layouts.admin.applog')
+@extends('layouts.auth.applog')
 @section('content')
+<div class="left-section wow fadeInLeft" data-wow-delay=".3s">
+    <h1>Pertanahan Bina Desa</h1>
+    <p>Hanya Boleh di Akses oleh Admin.</p>
+</div>
 
-                    <div class="col-lg-5 col-md-8 col-sm-10 mx-auto">
+<div class="right-section wow fadeInRight" data-wow-delay=".5s">
+    <div class="login-box">
+        <h2 class="wow fadeInDown" data-wow-delay=".6s">Login</h2>
+        <p class="wow fadeInUp" data-wow-delay=".8s">
+            Belum punya akun? <a href="{{ route('auth.create') }}">Daftar Sekarang</a>
+        </p>
 
-                        <div class="auth-form-light text-left p-5">
-                            <div class="brand-logo text-center mb-3">
-                                <img src="{{ asset('assets/images/logo.svg') }}" alt="logo">
-                            </div>
-                            @if (session('success'))
-                                <div class="alert alert-success">{{ session('success') }}</div>
-                            @endif
-                            @if (session('error'))
-                                <div class="alert alert-danger">{{ session('error') }}</div>
-                            @endif
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul class="mb-0">
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
+        {{-- Notifikasi --}}
+        @if (session('success'))
+            <div class="alert alert-success wow fadeIn" data-wow-delay="1s">{{ session('success') }}</div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger wow fadeIn" data-wow-delay="1s">{{ session('error') }}</div>
+        @endif
+        @if ($errors->any())
+            <div class="alert alert-danger wow fadeIn" data-wow-delay="1.2s">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-                            <h4 class="text-center mb-3">Hello! Let's get started</h4>
-                            <h6 class="font-weight-light text-center mb-4">Sign in to continue.</h6>
+        <form class="wow fadeInUp" data-wow-delay="1.4s" action="{{ route('auth.store') }}" method="POST">
+            @csrf
+            <div class="form-group wow fadeInUp" data-wow-delay="1.6s">
+                <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
+            </div>
 
+            <div class="form-group wow fadeInUp" data-wow-delay="1.8s">
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
 
-                            <form action="{{ route('auth.store') }}" method="POST">
-                                @csrf
+            <button type="submit" class="btn-login wow fadeInUp" data-wow-delay="2s" name="login">Masuk</button>
+        </form>
 
-                                <div class="form-group">
-                                    <input type="email" name="email" class="form-control form-control-lg" id="email"
-                                        placeholder="Email" value="{{ old('email') }}" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <input type="password" name="password" class="form-control form-control-lg"
-                                        placeholder="Password" required>
-                                </div>
-
-                                <div class="mt-3 d-grid gap-2">
-                                    {{-- Tombol login --}}
-                                    <button type="submit" name="login"
-                                        class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">
-                                        SIGN IN
-                                    </button>
-                                </div>
-                                <div class="my-3 text-center text-muted">— OR —</div>
-                                {{-- Tombol menuju register --}}
-                                <div class="mb-2 d-grid gap-2">
-                                    <a href="{{ route('auth.create') }}" class="btn btn-block btn-facebook auth-form-btn">
-                                        <i class="mdi mdi-account-plus me-2"></i>
-                                        Don't have an account? Create!
-                                    </a>
-                                </div>
-                            </form>
-
-                        </div>
-                    </div>
-
+    </div>
+</div>
 @endsection

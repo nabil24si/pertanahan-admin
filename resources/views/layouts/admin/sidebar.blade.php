@@ -20,25 +20,33 @@
                 <i class="mdi mdi-home menu-icon"></i>
             </a>
         </li>
-        <li class="nav-item"{{ request()->routeIs('user.*') ? 'active' : '' }}>
-            <a class="nav-link" href=" {{ route('user.index') }}">
-                <span class="menu-title">Data User</span>
-                <i class=" fa fa-user-circle menu-icon"></i>
+
+        <li class="nav-label text-muted mt-3">FITRU</li>
+
+        <li class="nav-item {{ request()->routeIs('jenispenggunaan.*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('jenispenggunaan.index') }}">
+                <span class="menu-title">Jenis Penggunaan</span>
+                <i class="fa fa-imdb menu-icon"></i>
             </a>
         </li>
-        <li class="nav-item" {{ request()->routeIs('warga.*') ? 'active' : '' }}>
-            <a class="nav-link" href=" {{ route('warga.index') }}">
+
+        <li class="nav-label text-muted mt-3">MASTER DATA</li>
+
+        <li class="nav-item {{ request()->routeIs('user.*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('user.index') }}">
+                <span class="menu-title">Data User</span>
+                <i class="fa fa-user-circle menu-icon"></i>
+            </a>
+        </li>
+
+        <li class="nav-item {{ request()->routeIs('warga.*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('warga.index') }}">
                 <span class="menu-title">Data Warga</span>
                 <i class="fa fa-id-card menu-icon"></i>
             </a>
         </li>
-        <li class="nav-item"{{ request()->routeIs('jenispenggunaan.*') ? 'active' : '' }}>
-            <a class="nav-link" href=" {{ route('jenispenggunaan.index') }}">
-                <span class="menu-title">Data JenisPenggunaan</span>
-                <i class="fa fa-imdb menu-icon"></i>
-            </a>
-        </li>
-        
+
+
 
     </ul>
 </nav>
