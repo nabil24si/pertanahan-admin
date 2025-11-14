@@ -29,6 +29,12 @@
                 <i class="fa fa-imdb menu-icon"></i>
             </a>
         </li>
+        <li class="nav-item {{ request()->routeIs('persil.*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('persil.index') }}">
+                <span class="menu-title">Persil</span>
+                <i class="fa fa-imdb menu-icon"></i>
+            </a>
+        </li>
 
         <li class="nav-label text-muted mt-3">MASTER DATA</li>
 
@@ -45,8 +51,6 @@
                 <i class="fa fa-id-card menu-icon"></i>
             </a>
         </li>
-
-
 
     </ul>
 </nav>
