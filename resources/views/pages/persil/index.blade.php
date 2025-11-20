@@ -69,7 +69,9 @@
                                 @endforelse
                             </tbody>
                         </table>
-
+                        <div class="mt-3">
+                            {{ $dataPersil->links('pagination::simple-bootstrap-5') }}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,10 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Persil;
 use App\Models\Warga;
+use Illuminate\Http\Request;
 
 class PersilController extends Controller
 {
@@ -13,9 +12,9 @@ class PersilController extends Controller
      */
     public function index()
     {
-        // Menampilkan semua data persil beserta nama warganya
-        $data['dataPersil'] = Persil::with('warga')->get();
+        $data['dataPersil'] = Persil::with('warga')->simplePaginate(10);
         return view('pages.persil.index', $data);
+
     }
 
     /**
@@ -34,13 +33,13 @@ class PersilController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'kode_persil'       => 'required|string|max:50|unique:persil,kode_persil',
-            'pemilik_warga_id'  => 'required|exists:warga,warga_id',
-            'luas_m2'           => 'required|numeric|min:1',
-            'penggunaan'        => 'required|string|max:100',
-            'alamat_lahan'      => 'required|string|max:255',
-            'rt'                => 'nullable|string|max:5',
-            'rw'                => 'nullable|string|max:5',
+            'kode_persil'      => 'required|string|max:50|unique:persil,kode_persil',
+            'pemilik_warga_id' => 'required|exists:warga,warga_id',
+            'luas_m2'          => 'required|numeric|min:1',
+            'penggunaan'       => 'required|string|max:100',
+            'alamat_lahan'     => 'required|string|max:255',
+            'rt'               => 'nullable|string|max:5',
+            'rw'               => 'nullable|string|max:5',
         ]);
 
         Persil::create($validated);
@@ -53,7 +52,7 @@ class PersilController extends Controller
     public function edit(string $id)
     {
         $data['dataPersil'] = Persil::findOrFail($id);
-        $data['dataWarga'] = Warga::all(); // untuk dropdown pemilik
+        $data['dataWarga']  = Warga::all(); // untuk dropdown pemilik
         return view('pages.persil.edit', $data);
     }
 
@@ -65,13 +64,13 @@ class PersilController extends Controller
         $persil = Persil::findOrFail($id);
 
         $validated = $request->validate([
-            'kode_persil'       => 'required|string|max:50|unique:persil,kode_persil,' . $persil->persil_id . ',persil_id',
-            'pemilik_warga_id'  => 'required|exists:warga,warga_id',
-            'luas_m2'           => 'required|numeric|min:1',
-            'penggunaan'        => 'required|string|max:100',
-            'alamat_lahan'      => 'required|string|max:255',
-            'rt'                => 'nullable|string|max:5',
-            'rw'                => 'nullable|string|max:5',
+            'kode_persil'      => 'required|string|max:50|unique:persil,kode_persil,' . $persil->persil_id . ',persil_id',
+            'pemilik_warga_id' => 'required|exists:warga,warga_id',
+            'luas_m2'          => 'required|numeric|min:1',
+            'penggunaan'       => 'required|string|max:100',
+            'alamat_lahan'     => 'required|string|max:255',
+            'rt'               => 'nullable|string|max:5',
+            'rw'               => 'nullable|string|max:5',
         ]);
 
         $persil->update($validated);

@@ -11,7 +11,7 @@ class JenisPenggunaanController extends Controller
      */
     public function index()
     {
-         $data['dataJenisPenggunaan'] = JenisPenggunaan::all();
+         $data['dataJenisPenggunaan'] = JenisPenggunaan::simplePaginate(10)->onEachSide(2) ;
 		return view('pages.jenispenggunaan.index',$data);
     }
 
