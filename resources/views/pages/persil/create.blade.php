@@ -1,4 +1,5 @@
 @extends('layouts.admin.app')
+
 @section('content')
     <div class="content-wrapper">
         <div class="page-header">
@@ -54,12 +55,17 @@
                                 </div>
                             </div>
 
-                            {{-- Penggunaan --}}
+                            {{-- PENGGUNAAN (SUDAH DIPERBAIKI MENJADI SELECT) --}}
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Penggunaan</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="penggunaan" class="form-control" placeholder="Contoh: Perumahan, Pertanian, dll"
-                                        value="{{ old('penggunaan') }}">
+                                    <select name="penggunaan" class="form-select"> <option value="">-- Pilih Penggunaan --</option>
+                                        <option value="Sawah" {{ old('penggunaan') == 'Sawah' ? 'selected' : '' }}>Sawah</option>
+                                        <option value="Kebun" {{ old('penggunaan') == 'Kebun' ? 'selected' : '' }}>Kebun</option>
+                                        <option value="Perumahan" {{ old('penggunaan') == 'Perumahan' ? 'selected' : '' }}>Perumahan</option>
+                                        <option value="Ruko" {{ old('penggunaan') == 'Ruko' ? 'selected' : '' }}>Ruko</option>
+                                        <option value="Lahan Kosong" {{ old('penggunaan') == 'Lahan Kosong' ? 'selected' : '' }}>Lahan Kosong</option>
+                                    </select>
                                 </div>
                             </div>
 

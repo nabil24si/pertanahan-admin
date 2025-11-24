@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Persil;
 use App\Models\Warga;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+// <--- JANGAN LUPA TAMBAHKAN INI
 
 class PersilController extends Controller
 {
@@ -14,7 +16,6 @@ class PersilController extends Controller
     {
         $data['dataPersil'] = Persil::with('warga')->simplePaginate(10);
         return view('pages.persil.index', $data);
-
     }
 
     /**
@@ -22,7 +23,6 @@ class PersilController extends Controller
      */
     public function create()
     {
-        // Ambil semua data warga untuk dropdown pemilik
         $data['dataWarga'] = Warga::all();
         return view('pages.persil.create', $data);
     }
@@ -36,7 +36,13 @@ class PersilController extends Controller
             'kode_persil'      => 'required|string|max:50|unique:persil,kode_persil',
             'pemilik_warga_id' => 'required|exists:warga,warga_id',
             'luas_m2'          => 'required|numeric|min:1',
-            'penggunaan'       => 'required|string|max:100',
+
+            // PERUBAHAN DI SINI: Validasi Enum
+            'penggunaan'       => [
+                'required',
+                Rule::in(['Sawah', 'Kebun', 'Perumahan', 'Ruko', 'Lahan Kosong']),
+            ],
+
             'alamat_lahan'     => 'required|string|max:255',
             'rt'               => 'nullable|string|max:5',
             'rw'               => 'nullable|string|max:5',
@@ -52,7 +58,7 @@ class PersilController extends Controller
     public function edit(string $id)
     {
         $data['dataPersil'] = Persil::findOrFail($id);
-        $data['dataWarga']  = Warga::all(); // untuk dropdown pemilik
+        $data['dataWarga']  = Warga::all();
         return view('pages.persil.edit', $data);
     }
 
@@ -64,10 +70,17 @@ class PersilController extends Controller
         $persil = Persil::findOrFail($id);
 
         $validated = $request->validate([
+            // Perhatikan: unique mengabaikan ID saat ini agar tidak error saat update diri sendiri
             'kode_persil'      => 'required|string|max:50|unique:persil,kode_persil,' . $persil->persil_id . ',persil_id',
             'pemilik_warga_id' => 'required|exists:warga,warga_id',
             'luas_m2'          => 'required|numeric|min:1',
-            'penggunaan'       => 'required|string|max:100',
+
+            // PERUBAHAN DI SINI: Validasi Enum
+            'penggunaan'       => [
+                'required',
+                Rule::in(['Sawah', 'Kebun', 'Perumahan', 'Ruko', 'Lahan Kosong']),
+            ],
+
             'alamat_lahan'     => 'required|string|max:255',
             'rt'               => 'nullable|string|max:5',
             'rw'               => 'nullable|string|max:5',

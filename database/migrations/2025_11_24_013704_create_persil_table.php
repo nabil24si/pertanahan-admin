@@ -16,7 +16,10 @@ return new class extends Migration
             $table->string('kode_persil', 50)->unique(); // Kode Unik Persil
             $table->unsignedBigInteger('pemilik_warga_id'); // Foreign Key ke tabel warga
             $table->decimal('luas_m2', 10, 2)->nullable(); // Luas dalam m2
-            $table->string('penggunaan', 100)->nullable(); // Jenis penggunaan lahan
+
+            // PERUBAHAN DI SINI: Menggunakan tipe enum
+            $table->enum('penggunaan', ['Sawah', 'Kebun', 'Perumahan', 'Ruko', 'Lahan Kosong'])->nullable();
+
             $table->string('alamat_lahan', 150)->nullable(); // Alamat lahan
             $table->string('rt', 5)->nullable();
             $table->string('rw', 5)->nullable();

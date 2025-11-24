@@ -56,12 +56,23 @@
                                 </div>
                             </div>
 
-                            {{-- Penggunaan --}}
+                            {{-- PENGGUNAAN (SUDAH DIPERBAIKI MENJADI SELECT) --}}
                             <div class="form-group row">
                                 <label for="penggunaan" class="col-sm-3 col-form-label">Penggunaan</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="penggunaan" name="penggunaan"
-                                        value="{{ old('penggunaan', $dataPersil->penggunaan) }}" placeholder="Contoh: Sawah, Kebun, Rumah" required>
+                                    <select id="penggunaan" name="penggunaan" class="form-select" required>
+                                        <option value="">-- Pilih Penggunaan --</option>
+                                        @php
+                                            $opsiPenggunaan = ['Sawah', 'Kebun', 'Perumahan', 'Ruko', 'Lahan Kosong'];
+                                        @endphp
+
+                                        @foreach ($opsiPenggunaan as $opsi)
+                                            <option value="{{ $opsi }}"
+                                                {{ old('penggunaan', $dataPersil->penggunaan) == $opsi ? 'selected' : '' }}>
+                                                {{ $opsi }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
 
