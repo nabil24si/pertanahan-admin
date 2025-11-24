@@ -1,0 +1,96 @@
+.float-wa {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        bottom: 30px; /* Jarak dari bawah */
+        right: 30px;  /* Jarak dari kanan */
+        background-color: #25d366; /* Warna Hijau WA */
+        color: #fff;
+        border-radius: 50px;
+        text-align: center;
+        font-size: 30px;
+        box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+
+        /* Animasi Pulse */
+        animation: pulse-green 2s infinite;
+    }
+
+    /* Efek Hover (Membesar sedikit) */
+    .float-wa:hover {
+        background-color: #128c7e; /* Warna lebih gelap saat hover */
+        transform: scale(1.1);
+    }
+
+    /* Styling Tooltip (Teks "Butuh Bantuan?") */
+    .tooltip-text {
+        visibility: hidden;
+        width: 120px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        top: 50%;
+        right: 115%; /* Posisi di sebelah kiri tombol */
+        transform: translateY(-50%);
+        opacity: 0;
+        transition: opacity 0.3s;
+        font-size: 14px;
+        font-family: sans-serif;
+    }
+
+    /* Panah kecil pada tooltip */
+    .tooltip-text::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        margin-top: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent transparent #333;
+    }
+
+    /* Tampilkan tooltip saat hover */
+    .float-wa:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    /* Keyframes Animasi Pulse */
+    @keyframes pulse-green {
+        0% {
+            box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+        }
+        70% {
+            box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+        }
+    }
+
+    /* Responsif untuk Mobile (Lebih kecil sedikit) */
+    @media (max-width: 768px) {
+        .float-wa {
+            width: 50px;
+            height: 50px;
+            bottom: 20px;
+            right: 20px;
+        }
+        .float-wa svg {
+            width: 24px;
+            height: 24px;
+        }
+        .tooltip-text {
+            display: none; /* Sembunyikan tooltip di HP agar tidak menuhin layar */
+        }
+    }

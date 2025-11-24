@@ -12,7 +12,7 @@
     <!-- endinject -->
     <!-- Layout styles -->
    <link type="text/css" href="{{ asset('assets/assets-admin/css/style.css') }}" rel="stylesheet">
-
+   <link type="text/css" href="{{ asset('assets/assets-admin/css/floatingwa.css') }}" rel="stylesheet">
     <!-- End layout styles -->
 
     <link rel="shortcut icon" href="{{ asset ('assets/assets-admin/images/favicon.png')}}" />
