@@ -1,72 +1,71 @@
 @extends('layouts.admin.app')
+
 @section('content')
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">Edit Data Persil</h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Forms</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Edit Data Persil</li>
+                    <li class="breadcrumb-item"><a href="{{ route('persil.index') }}">Data Persil</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit</li>
                 </ol>
             </nav>
         </div>
 
         <div class="row">
+            {{-- KOLOM KIRI: Form Edit Data --}}
             <div class="col-md-8 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Form Edit Data Persil</h4>
-                        <p class="card-description">Silakan ubah data di bawah ini</p>
+                        <h4 class="card-title">Form Edit Data & Tambah File</h4>
+                        <p class="card-description">Ubah data teks atau tambahkan file baru.</p>
 
-                        <form action="{{ route('persil.update', $dataPersil->persil_id) }}" method="POST" class="forms-sample">
+                        {{-- JANGAN LUPA: enctype="multipart/form-data" --}}
+                        <form action="{{ route('persil.update', $dataPersil->persil_id) }}" method="POST"
+                            class="forms-sample" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
                             {{-- Kode Persil --}}
                             <div class="form-group row">
-                                <label for="kode_persil" class="col-sm-3 col-form-label">Kode Persil</label>
+                                <label class="col-sm-3 col-form-label">Kode Persil</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="kode_persil" name="kode_persil"
+                                    <input type="text" class="form-control bg-light" name="kode_persil"
                                         value="{{ old('kode_persil', $dataPersil->kode_persil) }}" readonly>
                                 </div>
                             </div>
 
-                            {{-- Pemilik (Warga) --}}
-                            <div class="form-group row align-items-center">
-                                <label for="pemilik_warga_id" class="col-sm-3 col-form-label">Pemilik</label>
+                            {{-- Pemilik --}}
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Pemilik</label>
                                 <div class="col-sm-9">
-                                    <select id="pemilik_warga_id" name="pemilik_warga_id" class="form-select" required>
+                                    <select name="pemilik_warga_id" class="form-select" required>
                                         <option value="">-- Pilih Pemilik --</option>
                                         @foreach ($dataWarga as $warga)
                                             <option value="{{ $warga->warga_id }}"
                                                 {{ old('pemilik_warga_id', $dataPersil->pemilik_warga_id) == $warga->warga_id ? 'selected' : '' }}>
-                                                {{ $warga->nama }}
+                                                {{ $warga->nama }} - {{ $warga->no_ktp }}
                                             </option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
 
-                            {{-- Luas Tanah --}}
+                            {{-- Luas & Penggunaan --}}
                             <div class="form-group row">
-                                <label for="luas_m2" class="col-sm-3 col-form-label">Luas (m²)</label>
+                                <label class="col-sm-3 col-form-label">Luas (m²)</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" id="luas_m2" name="luas_m2"
-                                        value="{{ old('luas_m2', $dataPersil->luas_m2) }}" step="0.01" required>
+                                    <input type="number" class="form-control" name="luas_m2"
+                                        value="{{ old('luas_m2', $dataPersil->luas_m2) }}" required>
                                 </div>
                             </div>
 
-                            {{-- PENGGUNAAN (SUDAH DIPERBAIKI MENJADI SELECT) --}}
                             <div class="form-group row">
-                                <label for="penggunaan" class="col-sm-3 col-form-label">Penggunaan</label>
+                                <label class="col-sm-3 col-form-label">Penggunaan</label>
                                 <div class="col-sm-9">
-                                    <select id="penggunaan" name="penggunaan" class="form-select" required>
+                                    <select name="penggunaan" class="form-select" required>
                                         <option value="">-- Pilih Penggunaan --</option>
-                                        @php
-                                            $opsiPenggunaan = ['Sawah', 'Kebun', 'Perumahan', 'Ruko', 'Lahan Kosong'];
-                                        @endphp
-
-                                        @foreach ($opsiPenggunaan as $opsi)
+                                        @foreach (['Sawah', 'Kebun', 'Perumahan', 'Ruko', 'Lahan Kosong'] as $opsi)
                                             <option value="{{ $opsi }}"
                                                 {{ old('penggunaan', $dataPersil->penggunaan) == $opsi ? 'selected' : '' }}>
                                                 {{ $opsi }}
@@ -76,33 +75,93 @@
                                 </div>
                             </div>
 
-                            {{-- Alamat Lahan --}}
+                            {{-- Alamat, RT, RW --}}
                             <div class="form-group row">
-                                <label for="alamat_lahan" class="col-sm-3 col-form-label">Alamat Lahan</label>
+                                <label class="col-sm-3 col-form-label">Alamat</label>
                                 <div class="col-sm-9">
-                                    <textarea class="form-control" id="alamat_lahan" name="alamat_lahan" rows="3" required>{{ old('alamat_lahan', $dataPersil->alamat_lahan) }}</textarea>
+                                    <textarea class="form-control" name="alamat_lahan" rows="2" required>{{ old('alamat_lahan', $dataPersil->alamat_lahan) }}</textarea>
                                 </div>
                             </div>
-
-                            {{-- RT & RW --}}
                             <div class="form-group row">
-                                <label for="rt" class="col-sm-3 col-form-label">RT</label>
+                                <label class="col-sm-3 col-form-label">RT / RW</label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="rt" name="rt"
-                                        value="{{ old('rt', $dataPersil->rt) }}" required>
+                                    <input type="text" class="form-control" name="rt"
+                                        value="{{ old('rt', $dataPersil->rt) }}" placeholder="RT">
                                 </div>
-
-                                <label for="rw" class="col-sm-2 col-form-label text-center">RW</label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="rw" name="rw"
-                                        value="{{ old('rw', $dataPersil->rw) }}" required>
+                                    <input type="text" class="form-control" name="rw"
+                                        value="{{ old('rw', $dataPersil->rw) }}" placeholder="RW">
                                 </div>
                             </div>
 
-                            {{-- Tombol --}}
-                            <button type="submit" class="btn btn-gradient-primary me-2">Update</button>
+                            {{-- INPUT FILE BARU --}}
+                            <div class="form-group row highlight-addon">
+                                <label class="col-sm-3 col-form-label text-primary font-weight-bold">Tambah File
+                                    Baru</label>
+                                <div class="col-sm-9">
+                                    <input type="file" name="files[]" class="form-control" multiple>
+                                    <small class="text-muted">Biarkan kosong jika tidak ingin menambah file.</small>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-gradient-primary me-2">Simpan Perubahan</button>
                             <a href="{{ route('persil.index') }}" class="btn btn-light">Batal</a>
                         </form>
+                    </div>
+                </div>
+            </div>
+
+            {{-- KOLOM KANAN: List File Lama (Management) --}}
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">File Terlampir</h4>
+                        <p class="card-description">Kelola file yang sudah ada.</p>
+
+                        @if ($dataPersil->attachments->count() > 0)
+                            <div class="list-wrapper">
+                                <ul class="d-flex flex-column-reverse todo-list todo-list-custom">
+                                    @foreach ($dataPersil->attachments as $media)
+                                        <li class="d-block mb-3 border-bottom pb-2">
+                                            <div class="d-flex align-items-center justify-content-between mb-2">
+
+                                                {{-- Preview Nama File (Klik untuk lihat) --}}
+                                                <a href="{{ asset('storage/uploads/persil/' . $media->file_name) }}"
+                                                    target="_blank"
+                                                    class="text-decoration-none text-dark d-flex align-items-center">
+                                                    @if (str_contains($media->mime_type, 'image'))
+                                                        <i class="mdi mdi-image text-success me-2 icon-md"></i>
+                                                    @else
+                                                        <i class="mdi mdi-file-document text-info me-2 icon-md"></i>
+                                                    @endif
+                                                    <div class="text-truncate" style="max-width: 150px;"
+                                                        title="{{ $media->caption }}">
+                                                        {{ $media->caption }}
+                                                    </div>
+                                                </a>
+
+                                                {{-- Tombol Hapus (Panggil MediaController) --}}
+                                                {{-- Kita gunakan form kecil terpisah agar file langsung terhapus --}}
+                                                <form action="{{ route('persil.deleteMedia', $media->media_id) }}"
+                                                    method="POST" onsubmit="return confirm('Yakin hapus file ini?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm p-2">
+                                                        <i class="mdi mdi-close"></i>
+                                                </form>
+
+                                                {{-- Preview Gambar Kecil jika itu gambar --}}
+                                                @if (str_contains($media->mime_type, 'image'))
+                                                    <img src="{{ asset('storage/uploads/persil/' . $media->file_name) }}"
+                                                        class="img-thumbnail mt-1" style="height: 60px;">
+                                                @endif
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @else
+                            <div class="alert alert-secondary text-center">Belum ada file.</div>
+                        @endif
                     </div>
                 </div>
             </div>

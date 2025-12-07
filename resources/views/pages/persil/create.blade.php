@@ -1,4 +1,4 @@
-@extends('layouts.admin.app')
+\@extends('layouts.admin.app')
 
 @section('content')
     <div class="content-wrapper">
@@ -19,7 +19,8 @@
                         <h4 class="card-title">Input Data Persil</h4>
                         <p class="card-description">Silahkan isi form berikut untuk menambahkan data persil</p>
 
-                        <form action="{{ route('persil.store') }}" method="POST" class="forms-sample">
+                        {{-- PENTING: enctype="multipart/form-data" WAJIB ADA untuk upload file --}}
+                        <form action="{{ route('persil.store') }}" method="POST" class="forms-sample" enctype="multipart/form-data">
                             @csrf
 
                             {{-- Kode Persil --}}
@@ -27,7 +28,7 @@
                                 <label class="col-sm-3 col-form-label">Kode Persil</label>
                                 <div class="col-sm-9">
                                     <input type="text" name="kode_persil" class="form-control" placeholder="Kode Persil"
-                                        value="{{ old('kode_persil') }}">
+                                        value="{{ old('kode_persil') }}" required>
                                 </div>
                             </div>
 
@@ -35,7 +36,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Pemilik Warga</label>
                                 <div class="col-sm-9">
-                                    <select name="pemilik_warga_id" class="form-select">
+                                    <select name="pemilik_warga_id" class="form-select" required>
                                         <option value="">-- Pilih Pemilik --</option>
                                         @foreach ($dataWarga as $w)
                                             <option value="{{ $w->warga_id }}" {{ old('pemilik_warga_id') == $w->warga_id ? 'selected' : '' }}>
@@ -51,15 +52,16 @@
                                 <label class="col-sm-3 col-form-label">Luas (m²)</label>
                                 <div class="col-sm-9">
                                     <input type="number" name="luas_m2" class="form-control" placeholder="Contoh: 150"
-                                        value="{{ old('luas_m2') }}">
+                                        value="{{ old('luas_m2') }}" required>
                                 </div>
                             </div>
 
-                            {{-- PENGGUNAAN (SUDAH DIPERBAIKI MENJADI SELECT) --}}
+                            {{-- PENGGUNAAN --}}
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Penggunaan</label>
                                 <div class="col-sm-9">
-                                    <select name="penggunaan" class="form-select"> <option value="">-- Pilih Penggunaan --</option>
+                                    <select name="penggunaan" class="form-select" required>
+                                        <option value="">-- Pilih Penggunaan --</option>
                                         <option value="Sawah" {{ old('penggunaan') == 'Sawah' ? 'selected' : '' }}>Sawah</option>
                                         <option value="Kebun" {{ old('penggunaan') == 'Kebun' ? 'selected' : '' }}>Kebun</option>
                                         <option value="Perumahan" {{ old('penggunaan') == 'Perumahan' ? 'selected' : '' }}>Perumahan</option>
@@ -73,7 +75,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Alamat Lahan</label>
                                 <div class="col-sm-9">
-                                    <textarea name="alamat_lahan" class="form-control" rows="2" placeholder="Masukkan alamat lahan">{{ old('alamat_lahan') }}</textarea>
+                                    <textarea name="alamat_lahan" class="form-control" rows="2" placeholder="Masukkan alamat lahan" required>{{ old('alamat_lahan') }}</textarea>
                                 </div>
                             </div>
 
@@ -92,6 +94,15 @@
                                 <div class="col-sm-9">
                                     <input type="text" name="rw" class="form-control" placeholder="RW"
                                         value="{{ old('rw') }}">
+                                </div>
+                            </div>
+
+                            {{-- INPUT FILE (Dikembalikan Sesuai Request) --}}
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Upload Foto/Dokumen</label>
+                                <div class="col-sm-9">
+                                    <input type="file" name="files[]" class="form-control" multiple>
+                                    <small class="text-muted d-block mt-1">Bisa pilih banyak file sekaligus. Format: JPG, PNG, PDF. Max 5MB.</small>
                                 </div>
                             </div>
 

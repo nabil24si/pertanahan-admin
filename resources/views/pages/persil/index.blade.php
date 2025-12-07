@@ -1,8 +1,9 @@
 @extends('layouts.admin.app')
+
 @section('content')
     <div class="content-wrapper">
         <div class="page-header">
-            <h3 class="page-title">Data Persil</h3>
+            <h3 class="page-title">Bina Desa</h3>
             @if (session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
@@ -14,22 +15,18 @@
                 </ol>
             </nav>
         </div>
+
         <div class="table-responsive">
             <form method="GET" action="{{ route('persil.index') }}" class="mb-3">
                 <div class="row">
                     <div class="col-md-2">
                         <select name="penggunaan" class="form-select" onchange="this.form.submit()">
                             <option value="">Pilih Penggunaan</option>
-                            <option value="Sawah" {{ request('penggunaan') == 'Sawah' ? 'selected' : '' }}>
-                                Sawah
+                            <option value="Sawah" {{ request('penggunaan') == 'Sawah' ? 'selected' : '' }}>Sawah</option>
+                            <option value="Kebun" {{ request('penggunaan') == 'Kebun' ? 'selected' : '' }}>Kebun</option>
+                            <option value="Perumahan" {{ request('penggunaan') == 'Perumahan' ? 'selected' : '' }}>Perumahan
                             </option>
-                            <option value="Kebun" {{ request('penggunaan') == 'Kebun' ? 'selected' : '' }}>
-                                Kebun</option>
-                            <option value="Perumahan" {{ request('penggunaan') == 'Perumahan' ? 'selected' : '' }}>
-                                Perumahan
-                            </option>
-                            <option value="Ruko" {{ request('penggunaan') == 'Ruko' ? 'selected' : '' }}>
-                                Ruko</option>
+                            <option value="Ruko" {{ request('penggunaan') == 'Ruko' ? 'selected' : '' }}>Ruko</option>
                             <option value="Lahan Kosong" {{ request('penggunaan') == 'Lahan Kosong' ? 'selected' : '' }}>
                                 Lahan Kosong</option>
                         </select>
@@ -54,6 +51,7 @@
                     </div>
                 </div>
             </form>
+
             <div class="row">
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
@@ -71,6 +69,7 @@
                                         <th>Alamat Lahan</th>
                                         <th>RT</th>
                                         <th>RW</th>
+                                        <th>Detail Data</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -85,7 +84,13 @@
                                             <td>{{ $item->penggunaan }}</td>
                                             <td>{{ $item->alamat_lahan }}</td>
                                             <td>{{ $item->rt }}</td>
-                                            <td>{{ $item->rw }}</td>
+                                            <td>{{ $item->rw }}</small></td>
+                                            <td>
+                                                {{-- TOMBOL DETAIL BARU --}}
+                                                <a href="{{ route('persil.show', $item->persil_id) }}"
+                                                    class="btn btn-gradient-info btn-sm" title="Lihat Detail & Lampiran">
+                                                    <i class="mdi mdi-eye"></i> Detail
+                                                </a>
                                             <td>
                                                 <a href="{{ route('persil.edit', $item->persil_id) }}"
                                                     class="btn btn-gradient-success btn-sm">Edit</a>
@@ -95,7 +100,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-gradient-danger btn-sm"
-                                                        onclick="return confirm('Yakin ingin menghapus data ini?')">
+                                                        onclick="return confirm('Yakin ingin menghapus data ini beserta lampirannya?')">
                                                         Hapus
                                                     </button>
                                                 </form>

@@ -83,9 +83,6 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-3">
-                {{ $dataJenisPenggunaan->links('pagination::simple-bootstrap-5') }}
-            </div>
         </div>
     </div>
 @endsection

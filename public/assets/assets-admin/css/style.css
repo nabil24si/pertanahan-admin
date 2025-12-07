@@ -26308,7 +26308,207 @@ dl li {
 
 .my-float{
 	margin-top:16px;
-}   
+}
+
+/* 1. PALET WARNA (Biru Lebih Soft/Muda) */
+:root, [data-bs-theme=light] {
+    /* Menggunakan biru yang lebih muda/cerah, tidak terlalu pekat */
+    --bs-primary: #5D87FF;
+    --bs-primary-rgb: 93, 135, 255;
+    --bs-secondary: #ecf2ff;    /* Very light blue-grey */
+    --bs-info: #49BEFF;
+    --bs-link-color: #5D87FF;
+    --bs-link-hover-color: #4570ea;
+
+    /* Warna Latar Belakang */
+    --bs-body-bg: #f4f7fa;
+}
+
+/* 2. SIDEBAR & NAVIGASI (GAYA KOTAK FULL) */
+.sidebar {
+    background: #ffffff !important;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.03) !important;
+    border-right: 1px solid #e6eff5 !important;
+}
+
+/* Style untuk Item Menu (Link) */
+.sidebar .nav .nav-item .nav-link {
+    color: #5a6a85 !important; /* Warna teks abu modern */
+    font-weight: 500;
+
+    /* PERUBAHAN UTAMA: KOTAK FULL */
+    border-radius: 0px !important; /* Sudut kotak (tidak bulat) */
+    margin: 0 !important;          /* Menghapus jarak kiri-kanan (full width) */
+    padding: 14px 25px !important; /* Padding agar teks rapi */
+
+    transition: all 0.2s ease;
+    border: none !important;
+    border-left: 4px solid transparent !important; /* Persiapan border indikator */
+}
+
+/* Efek Hover pada Menu */
+.sidebar .nav .nav-item:hover > .nav-link {
+    background-color: #ecf2ff !important; /* Background biru sangat muda saat hover */
+    color: #5D87FF !important;
+}
+.sidebar .nav .nav-item:hover > .nav-link i {
+    color: #5D87FF !important;
+}
+
+/* MENU AKTIF (Warna Biru Soft + Border Kiri) */
+.sidebar .nav .nav-item.active > .nav-link {
+    /* Warna solid lebih soft, atau gradient yang sangat halus */
+
+    /* Jika ingin gradient halus: background: linear-gradient(90deg, #5D87FF 0%, #6993ff 100%) !important; */
+
+    color: #5D87FF !important;
+    box-shadow: none !important; /* Hilangkan shadow tebal agar terlihat flat/modern */
 
 
+}
+
+/* Warna Teks & Icon saat Aktif */
+.sidebar .nav .nav-item.active > .nav-link .menu-title,
+.sidebar .nav .nav-item.active > .nav-link i {
+    color: #5D87FF !important;
+}
+
+/* Warna Icon Default (Sebelum aktif) */
+.sidebar .nav .nav-item .nav-link i.menu-icon {
+    color: #7c8fac !important;
+}
+
+/* 3. MODERN CARDS (Kartu Konten) */
+.card {
+    border: none !important;
+    border-radius: 12px !important;
+    box-shadow: 0px 3px 20px rgba(1, 41, 112, 0.05) !important;
+    background-color: #ffffff;
+}
+
+.card .card-title {
+    color: #2a3547;
+    font-weight: 600;
+}
+
+/* 4. BUTTONS (Warna Biru Soft) */
+.btn {
+    border-radius: 6px !important;
+    font-weight: 500;
+}
+
+/* Tombol Gradient mengikuti warna soft */
+.btn-gradient-primary,
+.bg-gradient-primary {
+    background: linear-gradient(to right, #5D87FF, #49BEFF) !important;
+    border: none;
+}
+
+.btn-gradient-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* Tombol Primary Solid */
+.btn-primary {
+    background-color: #5D87FF !important;
+    border-color: #5D87FF !important;
+}
+
+.btn-primary:hover {
+    background-color: #4570ea !important;
+    border-color: #4570ea !important;
+}
+
+/* 5. PAGE TITLE ICON */
+.page-title .page-title-icon {
+    background: #5D87FF !important; /* Biru soft */
+    box-shadow: 0 3px 10px rgba(93, 135, 255, 0.4) !important;
+    color: #ffffff !important;
+    border-radius: 8px;
+}
+.page-title .page-title-icon i {
+    color: #ffffff !important;
+}
+
+/* 6. Navbar Background */
+.navbar.navbar-primary .navbar-menu-wrapper {
+    background: #ffffff !important;
+}
+
+/* Text Colors update */
+.text-primary {
+    color: #5D87FF !important;
+}
+
+/* ============================================================
+   BACKGROUND COLOR UPDATE (PALE BLUE)
+   (Letakkan di baris paling bawah style.css)
+   ============================================================ */
+
+body,
+.container-scroller,
+.page-body-wrapper,
+.main-panel,
+.content-wrapper {
+    /* OPSI 1: Cool Pale Blue (Rekomendasi - Biru sejuk & modern) */
+    background-color: #eff4f9 !important;
+
+    /* OPSI 2: Alice Blue (Sedikit lebih terang/putih) */
+    /* background-color: #f0f8ff !important; */
+
+    /* OPSI 3: Material Blue 50 (Biru langit sangat muda) */
+    /* background-color: #e3f2fd !important; */
+}
+
+/* Memastikan Variable Bootstrap juga terupdate */
+:root, [data-bs-theme=light] {
+    --bs-body-bg: #eff4f9;
+}
+
+/* Pastikan input form & dropdown tetap Putih agar kontras */
+.form-control,
+.form-select,
+.input-group-text {
+    background-color: #ffffff !important;
+    border-color: #dbe3e6 !important; /* Border disesuaikan agar halus */
+}
+
+/* Judul Halaman (Data Persil) agar lebih tajam di background biru */
+h3.page-title, .page-title {
+    color: #2c3e50 !important; /* Warna teks lebih gelap */
+    font-weight: 700;
+}
+/* ============================================================
+   MODERN CARD SHADOW (DATA BOX)
+   (Letakkan di baris paling bawah style.css)
+   ============================================================ */
+
+/* Menargetkan semua elemen 'card' di area konten utama */
+.content-wrapper .card,
+.main-panel .card {
+    /* 1. Hapus border garis bawaan agar shadow lebih bersih */
+    border: none !important;
+
+    /* 2. Sudut membulat (semakin besar nilai, semakin bulat) */
+    border-radius: 16px !important;
+
+    /* 3. EFEK SHADOW UTAMA (Modern & Soft) */
+    /* x-offset | y-offset | blur-radius | spread-radius | color */
+    box-shadow: 0px 10px 35px -5px rgba(90, 113, 208, 0.15) !important;
+
+    /* OPSI SHADOW ALTERNATIF (Lebih Netral/Abu-abu) - Hapus komentar jika ingin pakai ini */
+    /* box-shadow: 0px 8px 24px rgba(149, 157, 165, 0.2) !important; */
+
+    /* Transisi halus untuk efek hover (opsional) */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efek saat mouse diarahkan ke box data (sedikit terangkat) */
+.content-wrapper .card:hover,
+.main-panel .card:hover {
+    transform: translateY(-5px); /* Bergerak naik 5 pixel */
+    box-shadow: 0px 15px 40px -5px rgba(90, 113, 208, 0.25) !important; /* Shadow makin tegas */
+}
 /*# sourceMappingURL=maps/style.css.map */
+

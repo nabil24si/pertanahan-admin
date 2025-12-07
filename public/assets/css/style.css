@@ -26286,4 +26286,166 @@ dl li {
   -webkit-flex-grow: 1;
   flex-grow: 1;
 }
+
+/* =======================================================================
+   MODERN BLUE THEME OVERRIDE
+   (Letakkan kode ini di bagian paling bawah file style.css Anda)
+   ======================================================================= */
+
+/* 1. PALET WARNA & VARIABLE (Royal Blue Modern) */
+:root, [data-bs-theme=light] {
+    --bs-primary: #4361ee;      /* Royal Blue */
+    --bs-primary-rgb: 67, 97, 238;
+    --bs-secondary: #e2e6ea;    /* Soft Grey */
+    --bs-info: #4895ef;         /* Light Blue */
+    --bs-link-color: #4361ee;
+    --bs-link-hover-color: #3f37c9;
+
+    /* Warna Latar Belakang yang lebih bersih */
+    --bs-body-bg: #f3f4f6;
+}
+
+/* 2. SIDEBAR & NAVIGASI (MODERN STYLE) */
+/* Hapus background ungu lama, ganti putih bersih */
+.sidebar {
+    background: #ffffff !important;
+    box-shadow: 4px 0 25px rgba(0, 0, 0, 0.03); /* Bayangan halus di kanan */
+    border-right: none !important;
+}
+
+/* Style untuk Item Menu (Link) */
+.sidebar .nav .nav-item .nav-link {
+    color: #67748e !important; /* Warna teks abu-abu modern */
+    font-weight: 500;
+    border-radius: 12px; /* Sudut membulat */
+    margin: 4px 12px;    /* Memberi jarak kiri kanan agar terlihat melayang */
+    transition: all 0.3s ease;
+    border: none !important;
+}
+
+/* Efek Hover pada Menu */
+.sidebar .nav .nav-item:hover > .nav-link {
+    background-color: rgba(67, 97, 238, 0.08) !important; /* Biru transparan */
+    color: #4361ee !important;
+}
+.sidebar .nav .nav-item:hover > .nav-link i {
+    color: #4361ee !important;
+}
+
+/* MENU AKTIF (Warna Biru dengan Gradasi Halus) */
+.sidebar .nav .nav-item.active > .nav-link {
+    background: linear-gradient(135deg, #4361ee 0%, #3f37c9 100%) !important;
+    box-shadow: 0 6px 15px rgba(67, 97, 238, 0.4); /* Efek glowing biru */
+}
+
+/* Warna Teks & Icon saat Aktif (Putih) */
+.sidebar .nav .nav-item.active > .nav-link .menu-title,
+.sidebar .nav .nav-item.active > .nav-link i {
+    color: #ffffff !important;
+}
+
+/* Hapus border garis kiri gaya lama */
+.sidebar .nav .nav-item.active {
+    border-left: none !important;
+}
+
+/* Warna Icon Default */
+.sidebar .nav .nav-item .nav-link i.menu-icon {
+    color: #a0a6b1 !important;
+}
+
+/* 3. MODERN CARDS (Kartu Konten) */
+.card {
+    border: none !important;
+    border-radius: 16px !important; /* Sudut lebih tumpul */
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05) !important; /* Soft shadow */
+    background-color: #ffffff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efek Hover pada Card (Opsional: Card sedikit naik saat disentuh) */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px 0 rgba(67, 97, 238, 0.1) !important;
+}
+
+.card .card-title {
+    color: #344767;
+    font-weight: 700;
+}
+
+/* 4. BUTTONS (Tombol Modern) */
+.btn {
+    border-radius: 8px !important;
+    padding: 10px 24px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: none; /* Hapus huruf kapital semua */
+}
+
+/* Override tombol gradient ungu ke biru */
+.btn-gradient-primary,
+.bg-gradient-primary {
+    background: linear-gradient(to right, #4361ee, #3f37c9) !important;
+    border: none;
+    box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+}
+
+.btn-gradient-primary:hover {
+    box-shadow: 0 6px 15px rgba(67, 97, 238, 0.5);
+    transform: translateY(-1px);
+}
+
+/* Tombol Primary Solid */
+.btn-primary {
+    background-color: #4361ee !important;
+    border-color: #4361ee !important;
+    box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+}
+
+/* 5. NAVBAR (Top Bar) */
+.navbar {
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.03) !important;
+}
+.navbar.navbar-primary .navbar-menu-wrapper {
+    background: #ffffff !important; /* Ubah jadi putih agar bersih */
+}
+/* Jika ingin navbar tetap berwarna biru, hapus kode di atas dan gunakan ini:
+.navbar.navbar-primary .navbar-menu-wrapper {
+    background: linear-gradient(to right, #4361ee, #3a0ca3) !important;
+} */
+
+/* 6. FORM ELEMENTS (Input) */
+.form-control, .form-select {
+    border-radius: 8px !important;
+    border: 1px solid #d1d5db;
+    padding: 10px 15px;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #4361ee !important;
+    box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1) !important; /* Ring biru halus saat diketik */
+}
+
+/* 7. PAGE HEADER ICON */
+.page-title .page-title-icon {
+    background: linear-gradient(to right, #4361ee, #3f37c9) !important;
+    box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4) !important;
+    color: #ffffff !important;
+    border-radius: 10px;
+}
+.page-title .page-title-icon i {
+    color: #ffffff !important;
+}
+
+/* 8. TEXT COLORS */
+.text-primary {
+    color: #4361ee !important;
+}
+
+/* Footer agar tidak terlalu mepet */
+.footer {
+    background: transparent !important;
+    border-top: none !important;
+}
 /*# sourceMappingURL=maps/style.css.map */

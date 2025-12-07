@@ -25,7 +25,7 @@
 
         <li class="nav-item {{ request()->routeIs('jenispenggunaan.*') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('jenispenggunaan.index') }}">
-                <span class="menu-title">Jenis Penggunaan</span>
+                <span class="menu-title">Penggunaan</span>
                 <i class="fa fa-imdb menu-icon"></i>
             </a>
         </li>
