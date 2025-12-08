@@ -48,7 +48,9 @@
                     </div>
 
                     <div class="mt-4">
+                        @if (Auth::check() && Auth::user()->role === 'Admin')
                         <a href="{{ route('persil.edit', $persil->persil_id) }}" class="btn btn-warning btn-sm">Edit Data</a>
+                        @endif
                         <a href="{{ route('persil.index') }}" class="btn btn-light btn-sm">Kembali</a>
                     </div>
                 </div>

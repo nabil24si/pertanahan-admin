@@ -66,7 +66,9 @@
                                         <th>Pekerjaan</th>
                                         <th>No Telepon</th>
                                         <th>Email</th>
+                                    @if (Auth::check() && Auth::user()->role === 'Admin')
                                         <th>Action</th>
+                                    @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -79,6 +81,7 @@
                                             <td>{{ $item->pekerjaan }}</td>
                                             <td>{{ $item->telp }}</td>
                                             <td>{{ $item->email }}</td>
+                                        @if (Auth::check() && Auth::user()->role === 'Admin')
                                             <td><a href="{{ route('warga.edit', $item->warga_id) }}"
                                                     class="btn btn-gradient-success">Edit</a>
                                                 <form action="{{ route('warga.destroy', $item->warga_id) }}" method="POST"
@@ -91,6 +94,7 @@
                                                     </button>
                                                 </form>
                                             </td>
+                                        @endif
 
                                         </tr>
                                     @endforeach

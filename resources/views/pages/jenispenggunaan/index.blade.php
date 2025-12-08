@@ -50,7 +50,9 @@
                                     <tr>
                                         <th>Nama Penggunaan</th>
                                         <th>Keterangan</th>
-                                        <th>Action</th>
+                                        @if (Auth::check() && Auth::user()->role === 'Admin')
+                                            <th>Action</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -58,20 +60,20 @@
                                         <tr>
                                             <td>{{ $item->nama_penggunaan }}</td>
                                             <td>{{ $item->keterangan }}</td>
-                                            <td><a href="{{ route('jenispenggunaan.edit', $item->jenis_id) }}"
-                                                    class="btn btn-gradient-success">Edit</a>
-                                                <form action="{{ route('jenispenggunaan.destroy', $item->jenis_id) }}"
-                                                    method="POST" style="display:inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-gradient-danger"
-                                                        onclick="return confirm('Yakin ingin menghapus data ini?')">
-                                                        Hapus
-                                                    </button>
-                                                </form>
-
-                                            </td>
-
+                                            @if (Auth::check() && Auth::user()->role === 'Admin')
+                                                <td><a href="{{ route('jenispenggunaan.edit', $item->jenis_id) }}"
+                                                        class="btn btn-gradient-success">Edit</a>
+                                                    <form action="{{ route('jenispenggunaan.destroy', $item->jenis_id) }}"
+                                                        method="POST" style="display:inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-gradient-danger"
+                                                            onclick="return confirm('Yakin ingin menghapus data ini?')">
+                                                            Hapus
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>

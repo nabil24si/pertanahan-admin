@@ -6,24 +6,25 @@
             <p>Sudah punya akun? <a href="{{ route('auth.index') }}">Masuk Sekarang</a></p>
 
             {{-- Notifikasi Error --}}
-             @if (session('success'))
-                                <div class="alert alert-success">{{ session('success') }}</div>
-                            @endif
-                            @if (session('error'))
-                                <div class="alert alert-danger">{{ session('error') }}</div>
-                            @endif
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul class="mb-0">
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
+            @if (session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+            @if (session('error'))
+                <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <form action="{{ route('auth.store') }}" method="POST">
                 @csrf
+
                 <div class="form-group">
                     <input type="text" name="name" placeholder="Nama Lengkap" value="{{ old('name') }}" required>
                 </div>
@@ -40,8 +41,18 @@
                     <input type="password" name="password_confirmation" placeholder="Konfirmasi Password" required>
                 </div>
 
+                <!-- Tambahan ROLE -->
+                <div class="form-group">
+                    <select name="role" required>
+                        <option value="" disabled selected>Pilih Role</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Pegawai">Pegawai</option>
+                    </select>
+                </div>
+
                 <button type="submit" class="btn-register" name="register">Daftar</button>
             </form>
+
         </div>
     </div>
 

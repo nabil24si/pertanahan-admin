@@ -56,44 +56,49 @@ class AuthController extends Controller
 
         // Jika tombol register ditekan
         if ($request->has('register')) {
-            $request->validate([
-                'name' => 'required|string|max:50',
-                'email' => 'required|email|unique:users',
-                'password' => [
-                    'required',
-                    'min:3',
-                    'regex:/[A-Z]/', // harus ada huruf besar
-                    'confirmed',     // pastikan ada field password_confirmation
-                ],
-            ], [
-                'name.required' => 'Nama wajib diisi',
-                'email.required' => 'Email wajib diisi',
-                'email.email' => 'Format email tidak valid',
-                'email.unique' => 'Email sudah digunakan',
-                'password.required' => 'Password wajib diisi',
-                'password.min' => 'Password minimal 3 karakter',
-                'password.regex' => 'Password harus mengandung minimal satu huruf kapital',
-                'password.confirmed' => 'Konfirmasi password tidak cocok',
-            ]);
+    $request->validate([
+        'name' => 'required|string|max:50',
+        'email' => 'required|email|unique:users',
+        'role' => 'required|in:Admin,Pegawai', // <--- PENAMBAHAN VALIDASI ROLE
+        'password' => [
+            'required',
+            'min:3',
+            'regex:/[A-Z]/', // harus ada huruf besar
+            'confirmed',  // pastikan ada field password_confirmation
+        ],
+    ], [
+        'name.required' => 'Nama wajib diisi',
+        'email.required' => 'Email wajib diisi',
+        'email.email' => 'Format email tidak valid',
+        'email.unique' => 'Email sudah digunakan',
 
-            // Simpan ke tabel users
-            User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-            ]);
+        'role.required' => 'Role wajib dipilih', // <--- PESAN ERROR ROLE
+        'role.in' => 'Role yang dipilih tidak valid', // <--- PESAN ERROR ROLE
 
-            return redirect()->route('auth.index')->with('success', 'Akun berhasil dibuat, silakan login!');
-        }
+        'password.required' => 'Password wajib diisi',
+        'password.min' => 'Password minimal 3 karakter',
+        'password.regex' => 'Password harus mengandung minimal satu huruf kapital',
+        'password.confirmed' => 'Konfirmasi password tidak cocok',
+    ]);
 
-        // Jika tidak ada aksi
+    // Simpan ke tabel users
+    User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'role' => $request->role, // <--- PENAMBAHAN PENYIMPANAN ROLE
+        'password' => Hash::make($request->password),
+    ]);
+
+    return redirect()->route('auth.index')->with('success', 'Akun berhasil dibuat, silakan login!');
+}
+
         return back()->with('error', 'Aksi tidak dikenali.');
     }
 
     /**
      * Logout user
      */
-    public function destroy(Request $request)
+    public function logout(Request $request)
     {
         Auth::logout();
         $request->session()->invalidate();

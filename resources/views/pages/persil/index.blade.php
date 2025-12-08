@@ -70,7 +70,9 @@
                                         <th>RT</th>
                                         <th>RW</th>
                                         <th>Detail Data</th>
-                                        <th>Action</th>
+                                        @if (Auth::check() && Auth::user()->role === 'Admin')
+                                            <th>Action</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -91,6 +93,7 @@
                                                     class="btn btn-gradient-info btn-sm" title="Lihat Detail & Lampiran">
                                                     <i class="mdi mdi-eye"></i> Detail
                                                 </a>
+                                                @if (Auth::check() && Auth::user()->role === 'Admin')
                                             <td>
                                                 <a href="{{ route('persil.edit', $item->persil_id) }}"
                                                     class="btn btn-gradient-success btn-sm">Edit</a>
@@ -105,11 +108,13 @@
                                                     </button>
                                                 </form>
                                             </td>
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="8" class="text-center">Belum ada data persil</td>
-                                        </tr>
+
+                                    @endif
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="8" class="text-center">Belum ada data persil</td>
+                                    </tr>
                                     @endforelse
                                 </tbody>
                             </table>
