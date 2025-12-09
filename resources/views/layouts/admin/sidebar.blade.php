@@ -57,5 +57,13 @@
             </li>
         @endif
 
+        <li class="nav-item nav-category">Other Options</li>
+
+        <li class="nav-item {{ request()->routeIs('profilepengembang.*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('profilepengembang.index') }}">
+                <i class="mdi mdi-account-group menu-icon"></i>
+                <span class="menu-title">Profile Pengembang</span>
+            </a>
+        </li>
     </ul>
 </nav>

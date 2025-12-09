@@ -1,0 +1,19 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f7fa;
+    /* Latar belakang abu-abu terang */
+}
+
+.profile-photo {
+    /* Styling untuk foto */
+    transition: transform 0.3s ease-in-out;
+}
+
+.profile-photo:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(26, 115, 232, 0.4);
+}
+
+.social-link {
+    transition: background-color 0.3s, color 0.3s;
+}

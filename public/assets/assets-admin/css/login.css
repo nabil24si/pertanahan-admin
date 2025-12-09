@@ -1,143 +1,162 @@
-        * {
-            box-sizing: border-box;
-        }
+* {
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            display: flex;
-            margin: 0;
-            min-height: 100vh;
-            color: #fff;
-            background: #121212;
-        }
+body {
+    font-family: 'Poppins', sans-serif;
+    /* Ubah background utama menjadi putih */
+    display: flex;
+    margin: 0;
+    min-height: 100vh;
+    color: #333; /* Ubah warna teks default (global) menjadi gelap */
+    background: #f4f7fa; /* Latar belakang body yang terang */
+}
 
-        .left-section {
-            flex: 1;
-            background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80') no-repeat center center/cover;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 40px;
-            position: relative;
-        }
+.left-section {
+    flex: 1;
+    background: url('/assets/assets-admin/images/login.jpg') no-repeat center center/cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 40px;
+    position: relative;
+    color: #fff; 
+}
 
-        .left-section::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.5);
-        }
+/* ... sisa kode CSS lainnya tetap sama ... */
 
-        .left-section h1,
-        .left-section p {
-            position: relative;
-            z-index: 1;
-        }
+.left-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* Gelapkan overlay sedikit agar teks lebih jelas */
+    background: rgba(0, 0, 0, 0.4); 
+}
 
-        .left-section h1 {
-            font-size: 26px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
+.left-section h1,
+.left-section p {
+    position: relative;
+    z-index: 1;
+}
 
-        .left-section p {
-            font-size: 15px;
-            color: #ccc;
-        }
+.left-section h1 {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
 
-        .right-section {
-            flex: 1;
-            background-color: #1E1E2F;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-        }
+.left-section p {
+    font-size: 15px;
+    color: #e0e0e0; /* Warna abu-abu terang */
+}
 
-        .login-box {
-            width: 100%;
-            max-width: 380px;
-            background: #23233B;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-        }
+/* --- BAGIAN KANAN (RIGHT-SECTION - FORM LOGIN) --- */
+.right-section {
+    flex: 1;
+    /* Ubah warna latar belakang dari gelap ke terang (biru muda atau putih) */
+    background-color: #ffffff; /* Latar belakang putih */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
 
-        .login-box h2 {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            text-align: center;
-        }
+.login-box {
+    width: 100%;
+    max-width: 380px;
+    /* Ubah warna latar belakang login box menjadi putih atau biru muda */
+    background: #ffffff; /* Kotak login putih */
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 50, 150, 0.1); /* Shadow biru yang lebih halus */
+    color: #333; /* Pastikan teks di dalam kotak login berwarna gelap */
+    border: 1px solid #e0e0e0;
+}
 
-        .login-box p {
-            text-align: center;
-            font-size: 14px;
-            color: #aaa;
-            margin-bottom: 25px;
-        }
+.login-box h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #1a73e8; /* Biru terang untuk judul */
+}
 
-        .login-box a {
-            color: #7b5dfb;
-            text-decoration: none;
-        }
+.login-box p {
+    text-align: center;
+    font-size: 14px;
+    color: #777; /* Abu-abu gelap */
+    margin-bottom: 25px;
+}
 
-        .login-box a:hover {
-            text-decoration: underline;
-        }
+.login-box a {
+    color: #1a73e8; /* Warna tautan biru */
+    text-decoration: none;
+}
 
-        .form-group {
-            margin-bottom: 18px;
-        }
+.login-box a:hover {
+    text-decoration: underline;
+}
 
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            background: #2D2D44;
-            color: #fff;
-            font-size: 14px;
-        }
+.form-group {
+    margin-bottom: 18px;
+}
 
-        .form-group input::placeholder {
-            color: #aaa;
-        }
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc; /* Border input abu-abu terang */
+    border-radius: 8px;
+    background: #f8f8f8; /* Latar belakang input abu-abu sangat muda */
+    color: #333;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
 
-        .btn-login {
-            width: 100%;
-            background-color: #7b5dfb;
-            border: none;
-            padding: 12px;
-            color: white;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
+.form-group input:focus {
+    border-color: #1a73e8; /* Border biru saat fokus */
+    outline: none;
+}
 
-        .btn-login:hover {
-            background-color: #6847f2;
-        }
+.form-group input::placeholder {
+    color: #aaa;
+}
 
-        .bottom-text {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 14px;
-            color: #bbb;
-        }
+/* Tombol Login */
+.btn-login {
+    width: 100%;
+    background-color: #1a73e8; /* Warna Biru Utama */
+    border: none;
+    padding: 12px;
+    color: white;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
 
-        @media(max-width: 900px) {
-            body {
-                flex-direction: column;
-            }
+.btn-login:hover {
+    background-color: #0d47a1; /* Biru yang lebih gelap saat hover */
+}
 
-            .left-section {
-                height: 250px;
-            }
-        }
+.bottom-text {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555; /* Abu-abu untuk teks bawah */
+}
+
+/* Media Query untuk Mobile */
+@media(max-width: 900px) {
+    body {
+        flex-direction: column;
+    }
+
+    .left-section {
+        height: 250px;
+    }
+}
 
 body, html {
-  overflow-x: hidden;
+    overflow-x: hidden;
 }

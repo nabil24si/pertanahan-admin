@@ -1,141 +1,156 @@
-        * {
-            box-sizing: border-box;
-        }
+* {
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            display: flex;
-            margin: 0;
-            min-height: 100vh;
-            color: #fff;
-            background: #121212;
-        }
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    margin: 0;
+    min-height: 100vh;
+    color: #333; /* Teks gelap seperti di Login */
+    background: #f4f7fa; /* Background terang */
+}
 
-        .left-section {
-            flex: 1;
-            background-color: #1E1E2F;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-        }
+/* --- BAGIAN KIRI (LEFT-SECTION: FORM REGISTER) --- */
+/* Di Login ini adalah Right-Section, tapi di Register biasanya dibalik atau menyesuaikan struktur HTML Anda */
+.left-section {
+    flex: 1;
+    background-color: #ffffff; /* Background putih */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
 
-        .register-box {
-            width: 100%;
-            max-width: 400px;
-            background: #23233B;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-        }
+.register-box {
+    width: 100%;
+    max-width: 400px;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 50, 150, 0.1); /* Shadow biru halus */
+    border: 1px solid #e0e0e0;
+}
 
-        .register-box h2 {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            text-align: center;
-        }
+.register-box h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #1a73e8; /* Biru terang */
+}
 
-        .register-box p {
-            text-align: center;
-            font-size: 14px;
-            color: #aaa;
-            margin-bottom: 25px;
-        }
+.register-box p {
+    text-align: center;
+    font-size: 14px;
+    color: #777; /* Abu-abu gelap */
+    margin-bottom: 25px;
+}
 
-        .register-box a {
-            color: #7b5dfb;
-            text-decoration: none;
-        }
+.register-box a {
+    color: #1a73e8;
+    text-decoration: none;
+}
 
-        .register-box a:hover {
-            text-decoration: underline;
-        }
+.register-box a:hover {
+    text-decoration: underline;
+}
 
-        .form-group {
-            margin-bottom: 18px;
-        }
+.form-group {
+    margin-bottom: 18px;
+}
 
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            background: #2D2D44;
-            color: #fff;
-            font-size: 14px;
-        }
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc; /* Border abu terang */
+    border-radius: 8px;
+    background: #f8f8f8; /* Background input abu sangat muda */
+    color: #333; /* Teks input gelap */
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
 
-        .form-group input::placeholder {
-            color: #aaa;
-        }
+.form-group input:focus {
+    border-color: #1a73e8; /* Fokus biru */
+    outline: none;
+}
 
-        .btn-register {
-            width: 100%;
-            background-color: #7b5dfb;
-            border: none;
-            padding: 12px;
-            color: white;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
+.form-group input::placeholder {
+    color: #aaa;
+}
 
-        .btn-register:hover {
-            background-color: #6847f2;
-        }
+.btn-register {
+    width: 100%;
+    background-color: #1a73e8; /* Tombol Biru */
+    border: none;
+    padding: 12px;
+    color: white;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
 
-        .bottom-text {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 14px;
-            color: #bbb;
-        }
+.btn-register:hover {
+    background-color: #0d47a1; /* Biru gelap saat hover */
+}
 
-        /* Gambar kanan */
-        .right-section {
-            flex: 1;
-            background: url('https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=900&q=80') no-repeat center center/cover;
-            position: relative;
-            display: flex;
-            align-items: flex-end;
-            justify-content: flex-start;
-            padding: 40px;
-        }
+.bottom-text {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+}
 
-        .right-section::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.5);
-        }
+/* --- BAGIAN KANAN (RIGHT-SECTION: GAMBAR) --- */
+.right-section {
+    flex: 1;
+    /* Ganti URL gambar jika perlu agar konsisten tema */
+    background: url('/assets/assets-admin/images/register.jpg') no-repeat center center/cover;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 40px;
+    color: #fff; /* Teks di atas gambar tetap putih */
+}
 
-        .right-section h1,
-        .right-section p {
-            position: relative;
-            z-index: 1;
-        }
+.right-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4); /* Overlay gelap transparan */
+}
 
-        .right-section h1 {
-            font-size: 26px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
+.right-section h1,
+.right-section p {
+    position: relative;
+    z-index: 1;
+}
 
-        .right-section p {
-            font-size: 15px;
-            color: #ddd;
-        }
+.right-section h1 {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
 
-        @media(max-width: 900px) {
-            body {
-                flex-direction: column-reverse;
-            }
+.right-section p {
+    font-size: 15px;
+    color: #e0e0e0;
+}
 
-            .right-section {
-                height: 250px;
-            }
-        }
+/* Media Query Mobile */
+@media(max-width: 900px) {
+    body {
+        /* Di mobile, biasanya gambar di atas, form di bawah. 
+           Karena struktur HTML mungkin .left-section duluan, 
+           kita pakai column-reverse jika ingin gambar di atas (asumsi gambar di .right-section) */
+        flex-direction: column-reverse; 
+    }
 
+    .right-section {
+        height: 250px;
+    }
+}

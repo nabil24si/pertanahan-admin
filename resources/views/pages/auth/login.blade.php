@@ -1,12 +1,38 @@
 @extends('layouts.auth.applog')
+
 @section('content')
+{{-- Tambahkan CSS khusus agar logo rapi --}}
+<style>
+    .login-logo-wrapper {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .login-logo {
+        width: 180px; /* Atur lebar logo sesuai keinginan */
+        height: auto;
+        object-fit: contain;
+    }
+</style>
+
 <div class="left-section wow fadeInLeft" data-wow-delay=".3s">
+    {{-- Anda juga bisa menaruh logo besar transparan di sini jika mau --}}
     <h1>Pertanahan Bina Desa</h1>
     <p>Hanya Boleh di Akses oleh Admin.</p>
 </div>
 
 <div class="right-section wow fadeInRight" data-wow-delay=".5s">
     <div class="login-box">
+        
+        {{-- === BAGIAN LOGO === --}}
+        <div class="login-logo-wrapper wow fadeInDown" data-wow-delay=".4s">
+            {{-- Pastikan file logo ada di public/assets/images/ --}}
+            <img src="{{ asset('assets/assets-admin/images/logo.png') }}" 
+                 alt="Logo Desa" 
+                 class="login-logo"
+                 onerror="this.style.display='none'"> {{-- Sembunyikan jika gambar tidak ditemukan --}}
+        </div>
+        {{-- =================== --}}
+
         <h2 class="wow fadeInDown" data-wow-delay=".6s">Login</h2>
         <p class="wow fadeInUp" data-wow-delay=".8s">
             Belum punya akun? <a href="{{ route('auth.create') }}">Daftar Sekarang</a>

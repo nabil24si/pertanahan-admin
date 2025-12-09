@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JenisPenggunaanController;
 use App\Http\Controllers\PersilController;
+use App\Http\Controllers\ProfilePengembangController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WargaController;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [AuthController::class, 'index']);
 Route::get('auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::resource('auth', AuthController::class)->only(['index', 'store', 'create']);
+Route::resource('profilepengembang', ProfilePengembangController::class);
 // Route::resource('dashboard', DashboardController::class);
 
 
