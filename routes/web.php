@@ -14,46 +14,84 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [AuthController::class, 'index']);
 Route::get('auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::resource('auth', AuthController::class)->only(['index', 'store', 'create']);
-Route::resource('dashboard', DashboardController::class);
+// Route::resource('dashboard', DashboardController::class);
 
 
 
 // =============================
 // ROUTE ADMIN
 // =============================
-Route::middleware(['checkislogin', 'checkrole:Admin'])->group(function () {
 
-    // DASHBOARD
+Route::middleware(['checkislogin'])->group(function () {
+
     Route::resource('dashboard', DashboardController::class);
 
-    // FULL AKSES (ADMIN)
-    Route::resource('persil', PersilController::class);
-    Route::resource('warga', WargaController::class);
-    Route::resource('user', UserController::class);
-    Route::resource('jenispenggunaan', JenisPenggunaanController::class);
+    Route::middleware(['checkrole:Admin'])->group(function () {
+
+        // DASHBOARD
+
+        // FULL AKSES (ADMIN)
+        Route::delete('/persil/media/{id}', [PersilController::class, 'deleteMedia'])->name('persil.deleteMedia');
+        Route::resource('persil', PersilController::class);
+        Route::resource('warga', WargaController::class);
+        Route::resource('user', UserController::class);
+        Route::resource('jenispenggunaan', JenisPenggunaanController::class);
+    });
+    Route::middleware(['checkrole:Pegawai'])->group(function () {
+
+        // Pegawai hanya bisa Lihat + Tambah
+        // Route::resource('dashboard', DashboardController::class);
+        Route::resource('persil', PersilController::class)->only([
+            'index',
+            'show',
+            'create',
+            'store'
+        ]);
+
+        Route::resource('warga', WargaController::class)->only([
+            'index',
+            'show',
+            'create',
+            'store'
+        ]);
+
+        Route::resource('user', UserController::class)->only([
+            'index',
+            'show',
+            'create',
+            'store'
+        ]);
+
+        Route::resource('jenispenggunaan', JenisPenggunaanController::class)->only([
+            'index',
+            'show',
+            'create',
+            'store'
+        ]);
+    });
 });
 
 
 // =============================
 // ROUTE PEGAWAI
 // =============================
-Route::middleware(['checkislogin', 'checkrole:Pegawai'])->group(function () {
+// Route::middleware(['checkislogin', 'checkrole:Pegawai'])->group(function () {
 
-    // Pegawai hanya bisa Lihat + Tambah
-    Route::resource('dashboard', DashboardController::class);
-    Route::resource('persil', PersilController::class)->only([
-        'index', 'show', 'create', 'store'
-    ]);
+//     // Pegawai hanya bisa Lihat + Tambah
+//     Route::resource('dashboard', DashboardController::class);
+//     Route::resource('persil', PersilController::class)->only([
+//         'index', 'show', 'create', 'store'
+//     ]);
 
-    Route::resource('warga', WargaController::class)->only([
-        'index', 'show', 'create', 'store'
-    ]);
+//     Route::resource('warga', WargaController::class)->only([
+//         'index', 'show', 'create', 'store'
+//     ]);
 
-    Route::resource('user', UserController::class)->only([
-        'index', 'show', 'create', 'store'
-    ]);
+//     Route::resource('user', UserController::class)->only([
+//         'index', 'show', 'create', 'store'
+//     ]);
 
-    Route::resource('jenispenggunaan', JenisPenggunaanController::class)->only([
-        'index', 'show', 'create', 'store'
-    ]);
-});
+//     Route::resource('jenispenggunaan', JenisPenggunaanController::class)->only([
+//         'index', 'show', 'create', 'store'
+//     ]);
+// });

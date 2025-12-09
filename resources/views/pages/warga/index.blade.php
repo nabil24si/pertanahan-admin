@@ -1,111 +1,153 @@
 @extends('layouts.admin.app')
+
 @section('content')
     <div class="content-wrapper">
-        <div class="page-header">
-            <h3 class="page-title"> Bina Desa </h3>
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
+        <div class="page-header d-flex justify-content-between align-items-center">
+            <h3 class="page-title">
+                <span class="page-title-icon bg-gradient-primary text-white me-2">
+                    <i class="mdi mdi-account-group"></i> </span>
+                Data Warga
+            </h3>
             <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <a href="{{ route('warga.create') }}" class="btn btn-gradient-info">Tambah Data</a>
-                </ol>
+                <a href="{{ route('warga.create') }}" class="btn btn-gradient-primary btn-icon-text">
+                    <i class="mdi mdi-plus btn-icon-prepend"></i> Tambah Data
+                </a>
             </nav>
         </div>
+
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
         <div class="row">
             <div class="col-lg-12 grid-margin stretch-card">
-                <div class="card">
+                <div class="card shadow-sm">
                     <div class="card-body">
-                        <h4 class="card-title">Data Warga</h4>
-                        <p class="card-description"> Warga yang terdaftar</p>
-                        </p>
-                        <div class="table-responsive">
-                            <form method="GET" action="{{ route('warga.index') }}" class="mb-3">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <select name="jenis_kelamin" class="form-select" onchange="this.form.submit()">
-                                            <option value="">All</option>
-                                            <option value="Laki-laki"
-                                                {{ request('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki
-                                            </option>
-                                            <option value="Perempuan"
-                                                {{ request('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>
-                                                Perempuan</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="input-group">
-                                            <input type="text" name="search" class="form-control"
-                                                id="exampleInputIconRight" value="{{ request('search') }}"
-                                                placeholder="Search" aria-label="Search">
-                                            <button type="submit" class="input-group-text" id="basic-addon2">
-                                                <svg class="icon icon-xxs" fill="currentColor" viewBox="0 0 20 20"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd"
-                                                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
-                                            </button>
-                                            @if (request('search'))
-                                                <a href="{{ request()->fullUrlWithQuery(['search' => null]) }}"
-                                                    class="btn btn-outline-secondary ml-3" id="clear-search"> Clear</a>
-                                            @endif
-                                        </div>
+
+                        <form method="GET" action="{{ route('warga.index') }}" class="mb-4">
+                            <div class="row g-3 align-items-center">
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent border-end-0">
+                                            <i class="mdi mdi-magnify text-primary"></i>
+                                        </span>
+                                        <input type="text" name="search" class="form-control border-start-0"
+                                            placeholder="Cari nama atau NIK..." value="{{ request('search') }}">
+                                        <button type="submit" class="btn btn-gradient-primary">Cari</button>
                                     </div>
                                 </div>
-                            </form>
-                            <table class="table">
-                                <thead>
+
+                                <div class="col-md-3">
+                                    <select name="jenis_kelamin" class="form-select" onchange="this.form.submit()">
+                                        <option value="">-- Semua Gender --</option>
+                                        <option value="Laki-laki"
+                                            {{ request('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki
+                                        </option>
+                                        <option value="Perempuan"
+                                            {{ request('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan
+                                        </option>
+                                    </select>
+                                </div>
+
+                                @if (request('search') || request('jenis_kelamin'))
+                                    <div class="col-md-2">
+                                        <a href="{{ route('warga.index') }}" class="btn btn-inverse-secondary btn-sm">
+                                            <i class="mdi mdi-refresh"></i> Reset
+                                        </a>
+                                    </div>
+                                @endif
+                            </div>
+                        </form>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped align-middle">
+                                <thead class="table-light">
                                     <tr>
                                         <th>No KTP</th>
-                                        <th>Nama</th>
+                                        <th>Nama Lengkap</th>
                                         <th>Jenis Kelamin</th>
                                         <th>Agama</th>
                                         <th>Pekerjaan</th>
-                                        <th>No Telepon</th>
-                                        <th>Email</th>
-                                    @if (Auth::check() && Auth::user()->role === 'Admin')
-                                        <th>Action</th>
-                                    @endif
+                                        <th>Kontak</th>
+                                        @if (Auth::check() && Auth::user()->role === 'Admin')
+                                            <th class="text-center" width="150px">Aksi</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($dataWarga as $item)
+                                    @forelse ($dataWarga as $item)
                                         <tr>
-                                            <td>{{ $item->no_ktp }}</td>
-                                            <td>{{ $item->nama }}</td>
-                                            <td>{{ $item->jenis_kelamin }}</td>
+                                            <td class="fw-bold text-muted">{{ $item->no_ktp }}</td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="bg-gradient-info text-white rounded-circle d-flex justify-content-center align-items-center me-2"
+                                                        style="width:30px; height:30px; font-size:12px;">
+                                                        {{ substr($item->nama, 0, 1) }}
+                                                    </div>
+                                                    {{ $item->nama }}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                @if ($item->jenis_kelamin == 'Laki-laki')
+                                                    <span class="badge rounded-pill bg-info text-dark">Laki-laki</span>
+                                                @else
+                                                    <span class="badge rounded-pill bg-danger text-white">Perempuan</span>
+                                                @endif
+                                            </td>
                                             <td>{{ $item->agama }}</td>
                                             <td>{{ $item->pekerjaan }}</td>
-                                            <td>{{ $item->telp }}</td>
-                                            <td>{{ $item->email }}</td>
-                                        @if (Auth::check() && Auth::user()->role === 'Admin')
-                                            <td><a href="{{ route('warga.edit', $item->warga_id) }}"
-                                                    class="btn btn-gradient-success">Edit</a>
-                                                <form action="{{ route('warga.destroy', $item->warga_id) }}" method="POST"
-                                                    style="display:inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-gradient-danger"
-                                                        onclick="return confirm('Yakin ingin menghapus data ini?')">
-                                                        Hapus
-                                                    </button>
-                                                </form>
+                                            <td>
+                                                <div class="d-flex flex-column">
+                                                    <small><i class="mdi mdi-phone text-success"></i>
+                                                        {{ $item->telp }}</small>
+                                                    <small class="text-muted">{{ $item->email }}</small>
+                                                </div>
                                             </td>
-                                        @endif
+                                            @if (Auth::check() && Auth::user()->role === 'Admin')
+                                                <td class="text-center">
+                                                    <div class="d-flex justify-content-center gap-2">
+                                                        {{-- Tombol Edit --}}
+                                                        <a href="{{ route('warga.edit', $item->warga_id) }}"
+                                                            class="btn btn-sm btn-warning text-dark d-flex align-items-center">
+                                                            <i class="mdi mdi-pencil me-1"></i> Edit
+                                                        </a>
 
+                                                        {{-- Tombol Hapus --}}
+                                                        <form action="{{ route('warga.destroy', $item->warga_id) }}"
+                                                            method="POST" class="d-inline">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="btn btn-sm btn-danger d-flex align-items-center"
+                                                                onclick="return confirm('Yakin ingin menghapus data {{ $item->nama }}?')">
+                                                                <i class="mdi mdi-delete me-1"></i> Hapus
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            @endif
                                         </tr>
-                                    @endforeach
+                                    @empty
+                                        <tr>
+                                            <td colspan="7" class="text-center py-4 text-muted">
+                                                <i class="mdi mdi-file-find display-4 d-block mb-2"></i>
+                                                Data tidak ditemukan.
+                                            </td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
-                            <div class="mt-3">
-                                {{ $dataWarga->links('pagination::simple-bootstrap-5') }}
-                            </div>
+                        </div>
+
+                        <div class="mt-4 d-flex justify-content-end">
+                            {{ $dataWarga->withQueryString()->links('pagination::SIMPLE-bootstrap-5') }}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    @endsection
+    </div>
+@endsection

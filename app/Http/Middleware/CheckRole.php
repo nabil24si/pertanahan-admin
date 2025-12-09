@@ -11,10 +11,6 @@ class CheckRole
 {
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        // 1. Cek sudah login
-        if (!Auth::check()) {
-            abort(403, 'Forbidden');
-        }
 
         $userRole = Auth::user()->role;
 
@@ -29,6 +25,7 @@ class CheckRole
         }
 
         // 4. Selain itu → tolak
-        abort(403, 'Forbidden');
+
+        return abort(403, 'Forbidden');
     }
 }

@@ -11,9 +11,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        if (!Auth::check()) {
-		      return redirect()->route('auth.index');
-        }
+        // if (!Auth::check()) {
+		//       return redirect()->route('auth.index');
+        // }
         return view('pages.dashboard');
     }
 

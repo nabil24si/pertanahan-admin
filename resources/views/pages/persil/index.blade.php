@@ -2,128 +2,176 @@
 
 @section('content')
     <div class="content-wrapper">
-        <div class="page-header">
-            <h3 class="page-title">Bina Desa</h3>
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
+        <div class="page-header d-flex justify-content-between align-items-center">
+            <h3 class="page-title">
+                <span class="page-title-icon bg-gradient-primary text-white me-2">
+                    <i class="mdi mdi-map-marker-radius"></i>
+                </span>
+                Data Persil
+            </h3>
             <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <a href="{{ route('persil.create') }}" class="btn btn-gradient-info">Tambah Data</a>
-                </ol>
+                <a href="{{ route('persil.create') }}" class="btn btn-gradient-primary btn-icon-text">
+                    <i class="mdi mdi-plus btn-icon-prepend"></i> Tambah Data
+                </a>
             </nav>
         </div>
 
-        <div class="table-responsive">
-            <form method="GET" action="{{ route('persil.index') }}" class="mb-3">
-                <div class="row">
-                    <div class="col-md-2">
-                        <select name="penggunaan" class="form-select" onchange="this.form.submit()">
-                            <option value="">Pilih Penggunaan</option>
-                            <option value="Sawah" {{ request('penggunaan') == 'Sawah' ? 'selected' : '' }}>Sawah</option>
-                            <option value="Kebun" {{ request('penggunaan') == 'Kebun' ? 'selected' : '' }}>Kebun</option>
-                            <option value="Perumahan" {{ request('penggunaan') == 'Perumahan' ? 'selected' : '' }}>Perumahan
-                            </option>
-                            <option value="Ruko" {{ request('penggunaan') == 'Ruko' ? 'selected' : '' }}>Ruko</option>
-                            <option value="Lahan Kosong" {{ request('penggunaan') == 'Lahan Kosong' ? 'selected' : '' }}>
-                                Lahan Kosong</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="input-group">
-                            <input type="text" name="search" class="form-control" id="exampleInputIconRight"
-                                value="{{ request('search') }}" placeholder="Search" aria-label="Search">
-                            <button type="submit" class="input-group-text" id="basic-addon2">
-                                <svg class="icon icon-xxs" fill="currentColor" viewBox="0 0 20 20"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                            </button>
-                            @if (request('search'))
-                                <a href="{{ request()->fullUrlWithQuery(['search' => null]) }}"
-                                    class="btn btn-outline-secondary ml-3" id="clear-search"> Clear</a>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-            </form>
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
 
-            <div class="row">
-                <div class="col-lg-12 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Data Persil</h4>
-                            <p class="card-description">Daftar data persil yang terdaftar</p>
+        <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card shadow-sm">
+                    <div class="card-body">
 
-                            <table class="table table-striped">
-                                <thead>
+                        <form method="GET" action="{{ route('persil.index') }}" class="mb-4">
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" name="search" class="form-control"
+                                            placeholder="Cari Kode Persil atau Pemilik..." value="{{ request('search') }}">
+                                        <button type="submit" class="btn btn-gradient-primary">
+                                            <i class="mdi mdi-magnify"></i>Cari
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="mdi mdi-filter"></i></span>
+                                        <select name="penggunaan" class="form-select" onchange="this.form.submit()">
+                                            <option value="">-- Semua Penggunaan --</option>
+                                            <option value="Sawah" {{ request('penggunaan') == 'Sawah' ? 'selected' : '' }}>
+                                                Sawah</option>
+                                            <option value="Kebun" {{ request('penggunaan') == 'Kebun' ? 'selected' : '' }}>
+                                                Kebun</option>
+                                            <option value="Perumahan"
+                                                {{ request('penggunaan') == 'Perumahan' ? 'selected' : '' }}>Perumahan
+                                            </option>
+                                            <option value="Ruko" {{ request('penggunaan') == 'Ruko' ? 'selected' : '' }}>
+                                                Ruko</option>
+                                            <option value="Lahan Kosong"
+                                                {{ request('penggunaan') == 'Lahan Kosong' ? 'selected' : '' }}>Lahan Kosong
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
+                                @if (request('search') || request('penggunaan'))
+                                    <div class="col-md-2">
+                                        <a href="{{ route('persil.index') }}"
+                                            class="btn btn-inverse-secondary btn-icon-text">
+                                            <i class="mdi mdi-refresh btn-icon-prepend"></i> Reset
+                                        </a>
+                                    </div>
+                                @endif
+                            </div>
+                        </form>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped align-middle">
+                                <thead class="table-light">
                                     <tr>
                                         <th>Kode Persil</th>
                                         <th>Pemilik</th>
                                         <th>Luas (m²)</th>
                                         <th>Penggunaan</th>
                                         <th>Alamat Lahan</th>
-                                        <th>RT</th>
-                                        <th>RW</th>
-                                        <th>Detail Data</th>
-                                        @if (Auth::check() && Auth::user()->role === 'Admin')
-                                            <th>Action</th>
-                                        @endif
+                                        <th>RT / RW</th>
+                                        <th class="text-center" width="200px">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse ($dataPersil as $item)
                                         <tr>
-                                            <td>{{ $item->kode_persil }}</td>
+                                            <td class="fw-bold text-primary">{{ $item->kode_persil }}</td>
                                             <td>
-                                                {{ $item->warga ? $item->warga->nama : '-' }}
+                                                <div class="d-flex align-items-center">
+                                                    <i class="mdi mdi-account-circle text-muted me-2"
+                                                        style="font-size: 20px;"></i>
+                                                    {{ $item->warga ? $item->warga->nama : '-' }}
+                                                </div>
                                             </td>
-                                            <td>{{ $item->luas_m2 }}</td>
-                                            <td>{{ $item->penggunaan }}</td>
-                                            <td>{{ $item->alamat_lahan }}</td>
-                                            <td>{{ $item->rt }}</td>
-                                            <td>{{ $item->rw }}</small></td>
+                                            <td>{{ $item->luas_m2 }} m²</td>
                                             <td>
-                                                {{-- TOMBOL DETAIL BARU --}}
-                                                <a href="{{ route('persil.show', $item->persil_id) }}"
-                                                    class="btn btn-gradient-info btn-sm" title="Lihat Detail & Lampiran">
-                                                    <i class="mdi mdi-eye"></i> Detail
-                                                </a>
-                                                @if (Auth::check() && Auth::user()->role === 'Admin')
-                                            <td>
-                                                <a href="{{ route('persil.edit', $item->persil_id) }}"
-                                                    class="btn btn-gradient-success btn-sm">Edit</a>
-
-                                                <form action="{{ route('persil.destroy', $item->persil_id) }}"
-                                                    method="POST" style="display:inline-block">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-gradient-danger btn-sm"
-                                                        onclick="return confirm('Yakin ingin menghapus data ini beserta lampirannya?')">
-                                                        Hapus
-                                                    </button>
-                                                </form>
+                                                {{-- Logika Warna Badge --}}
+                                                @php
+                                                    $badgeClass = 'bg-secondary';
+                                                    if ($item->penggunaan == 'Sawah') {
+                                                        $badgeClass = 'bg-success';
+                                                    } elseif ($item->penggunaan == 'Kebun') {
+                                                        $badgeClass = 'bg-success';
+                                                    } elseif ($item->penggunaan == 'Perumahan') {
+                                                        $badgeClass = 'bg-info';
+                                                    } elseif ($item->penggunaan == 'Ruko') {
+                                                        $badgeClass = 'bg-warning text-dark';
+                                                    }
+                                                @endphp
+                                                <span
+                                                    class="badge rounded-pill {{ $badgeClass }}">{{ $item->penggunaan }}</span>
                                             </td>
+                                            <td class="text-wrap" style="max-width: 200px;">{{ $item->alamat_lahan }}</td>
+                                            <td>{{ $item->rt }} / {{ $item->rw }}</td>
 
-                                    @endif
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="8" class="text-center">Belum ada data persil</td>
-                                    </tr>
+                                            {{-- Kolom Aksi (Gabungan Detail + Admin Actions) --}}
+                                            <td class="text-center">
+                                                <div class="d-flex justify-content-center gap-1">
+
+                                                    {{-- Tombol Detail --}}
+                                                    <a href="{{ route('persil.show', $item->persil_id) }}"
+                                                        class="btn btn-sm btn-info text-white d-flex align-items-center"
+                                                        title="Lihat Detail">
+                                                        <i class="mdi mdi-eye me-1"></i> Detail
+                                                    </a>
+
+                                                    @if (Auth::check() && Auth::user()->role === 'Admin')
+                                                        {{-- Tombol Edit --}}
+                                                        <a href="{{ route('persil.edit', $item->persil_id) }}"
+                                                            class="btn btn-sm btn-warning text-dark d-flex align-items-center"
+                                                            title="Edit Data">
+                                                            <i class="mdi mdi-pencil me-1"></i> Edit
+                                                        </a>
+
+                                                        {{-- Tombol Hapus --}}
+                                                        <form action="{{ route('persil.destroy', $item->persil_id) }}"
+                                                            method="POST" class="d-inline">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="btn btn-sm btn-danger text-white d-flex align-items-center"
+                                                                onclick="return confirm('Yakin ingin menghapus data ini beserta lampirannya?')"
+                                                                title="Hapus Data">
+                                                                <i class="mdi mdi-delete me-1"></i> Hapus
+                                                            </button>
+                                                        </form>
+                                                    @endif
+
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="7" class="text-center py-5 text-muted">
+                                                <i class="mdi mdi-map-marker-off display-4 d-block mb-3"></i>
+                                                Belum ada data persil yang ditemukan.
+                                            </td>
+                                        </tr>
                                     @endforelse
                                 </tbody>
                             </table>
-                            <div class="mt-3">
-                                {{ $dataPersil->links('pagination::simple-bootstrap-5') }}
-                            </div>
+                        </div>
+
+                        <div class="mt-4 d-flex justify-content-end">
+                            {{ $dataPersil->withQueryString()->links('pagination::simple-bootstrap-5') }}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    @endsection
+    </div>
+@endsection
