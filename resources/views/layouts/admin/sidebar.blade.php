@@ -53,6 +53,13 @@
             </a>
         </li>
 
+        <li class="nav-item {{ request()->routeIs('peta_persil.*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('peta_persil.index') }}">
+                <i class="mdi mdi-map-marker-radius menu-icon"></i>
+                <span class="menu-title">Peta Persil</span>
+            </a>
+        </li>
+
         <li class="nav-item nav-category">Master Data</li>
 
         <li class="nav-item {{ request()->routeIs('warga.*') ? 'active' : '' }}">

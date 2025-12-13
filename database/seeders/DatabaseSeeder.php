@@ -13,6 +13,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call([
+            WargaSeeder::class,
+            PersilSeeder::class,
+            CreateDokumenPersilDummy::class,
+            CreateSengketaPersilDummy::class,
+
+            // Panggil seeder peta persil baru di sini
+            CreatePetaPersilDummy::class,
+        ]);
         // User::factory(10)->create();
 
         User::factory()->create([
