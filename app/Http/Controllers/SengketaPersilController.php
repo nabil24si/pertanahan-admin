@@ -3,42 +3,42 @@ namespace App\Http\Controllers;
 
 use App\Models\Media;
 use App\Models\Persil;
-use App\Models\DokumenPersil;
+use App\Models\SengketaPersil;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 
-class DokumenPersilController extends Controller
+class SengketaPersilController extends Controller
 {
     // Nama folder penyimpanan di disk 'public'
-    private $storagePath = 'uploads/dokumen_persil';
+    private $storagePath = 'uploads/sengketa_persil';
     // Nama tabel referensi di kolom 'ref_table' tabel Media
-    private $refTable = 'dokumen_persil';
-    // Nama Primary Key di tabel DokumenPersil
-    private $refIdName = 'dokumen_id';
+    private $refTable = 'sengketa_persil';
+    // Nama Primary Key di tabel SengketaPersil
+    private $refIdName = 'sengketa_id';
 
 
     public function index(Request $request)
     {
-        $filterableColumns = ['jenis_dokumen'];
-        $searchableColumns = ['nomor', 'keterangan'];
+        $filterableColumns = ['status'];
+        $searchableColumns = ['pihak_1', 'pihak_2', 'kronologi'];
 
-        $data['dataDokumen'] = DokumenPersil::with('persil')
-            // Asumsi Anda memiliki scope filter dan search di model DokumenPersil
-            // ->filter($request, $filterableColumns)
+        $data['dataSengketa'] = SengketaPersil::with(['persil', 'persil.warga'])
+            // Asumsi scope filter dan search sudah diimplementasikan di model SengketaPersil
+            ->filter($request, $filterableColumns)
             ->search($request, $searchableColumns)
             ->latest()
             ->simplePaginate(10)
             ->withQueryString();
 
-        return view('pages.dokumen_persil.index', $data);
+        return view('pages.sengketa_persil.index', $data);
     }
 
     public function create()
     {
-        $data['dataPersil'] = Persil::all();
-        return view('pages.dokumen_persil.create', $data);
+        // Memuat data Persil dengan relasi pemilik (warga) untuk dropdown
+        $data['dataPersil'] = Persil::with('warga')->get();
+        return view('pages.sengketa_persil.create', $data);
     }
 
     public function store(Request $request)
@@ -46,14 +46,16 @@ class DokumenPersilController extends Controller
         // 1. Validasi
         $validated = $request->validate([
             'persil_id'       => 'required|exists:persil,persil_id',
-            'jenis_dokumen'   => 'required|string|max:255',
-            'nomor'           => 'nullable|string|max:255',
-            'keterangan'      => 'nullable|string',
+            'pihak_1'         => 'required|string|max:150',
+            'pihak_2'         => 'nullable|string|max:150',
+            'kronologi'       => 'required|string',
+            'status'          => 'required|in:ditolak,diterima,diproses', // Menggunakan ENUM yang sudah kita definisikan
+            'penyelesaian'    => 'nullable|string',
             'files.*'         => 'nullable|mimes:jpg,jpeg,png,pdf,docx|max:5120', // Validasi File
         ]);
 
-        // 2. Simpan Data Dokumen (Buang 'files')
-        $dokumen = DokumenPersil::create(Arr::except($validated, ['files']));
+        // 2. Simpan Data Sengketa (Buang 'files')
+        $sengketa = SengketaPersil::create(Arr::except($validated, ['files']));
 
         // 3. Logic Upload File
         if ($request->hasFile('files')) {
@@ -61,13 +63,13 @@ class DokumenPersilController extends Controller
                 // Generate nama file unik
                 $filename = time() . '_' . $index . '_' . $file->getClientOriginalName();
 
-                // Simpan Fisik ke 'uploads/dokumen_persil'
+                // Simpan Fisik ke 'uploads/sengketa_persil'
                 $file->storeAs($this->storagePath, $filename, 'public');
 
                 // Simpan Database Media
                 Media::create([
-                    'ref_table'  => $this->refTable,
-                    'ref_id'     => $dokumen->{$this->refIdName}, // Mengambil dokumen_id
+                    'ref_table'  => $this->refTable, // sengketa_persil
+                    'ref_id'     => $sengketa->{$this->refIdName}, // sengketa_id
                     'file_name'  => $filename,
                     'caption'    => $file->getClientOriginalName(),
                     'mime_type'  => $file->getClientMimeType(),
@@ -76,51 +78,53 @@ class DokumenPersilController extends Controller
             }
         }
 
-        return redirect()->route('dokumen_persil.index')->with('success', 'Data Dokumen berhasil ditambahkan!');
+        return redirect()->route('sengketa_persil.index')->with('success', 'Data Sengketa berhasil ditambahkan!');
     }
 
     public function show($id)
     {
-        // Asumsi relasi di model DokumenPersil adalah 'attachments'
-        $dokumen = DokumenPersil::with(['persil', 'attachments'])->findOrFail($id);
-        return view('pages.dokumen_persil.show', compact('dokumen'));
+        // Memuat relasi persil, pemilik persil, dan lampiran media
+        $sengketa = SengketaPersil::with(['persil.warga', 'attachments'])->findOrFail($id);
+        return view('pages.sengketa_persil.show', compact('sengketa'));
     }
 
     public function edit(string $id)
     {
-        $data['dataDokumen'] = DokumenPersil::with(['persil', 'attachments'])->findOrFail($id);
-        $data['dataPersil']  = Persil::all();
+        $data['dataSengketa'] = SengketaPersil::with(['persil.warga', 'attachments'])->findOrFail($id);
+        $data['dataPersil']  = Persil::with('warga')->get();
 
-        return view('pages.dokumen_persil.edit', $data);
+        return view('pages.sengketa_persil.edit', $data);
     }
 
     public function update(Request $request, string $id)
     {
-        $dokumen = DokumenPersil::findOrFail($id);
+        $sengketa = SengketaPersil::findOrFail($id);
 
         $validated = $request->validate([
             'persil_id'       => 'required|exists:persil,persil_id',
-            'jenis_dokumen'   => 'required|string|max:255',
-            'nomor'           => 'nullable|string|max:255',
-            'keterangan'      => 'nullable|string',
+            'pihak_1'         => 'required|string|max:150',
+            'pihak_2'         => 'nullable|string|max:150',
+            'kronologi'       => 'required|string',
+            'status'          => 'required|in:ditolak,diterima,diproses',
+            'penyelesaian'    => 'nullable|string',
             'files.*'         => 'nullable|mimes:jpg,jpeg,png,pdf,docx|max:5120',
         ]);
 
         // 1. Update Data Teks
-        $dokumen->update(Arr::except($validated, ['files']));
+        $sengketa->update(Arr::except($validated, ['files']));
 
         // 2. Logic Tambah File Baru (Append)
         if ($request->hasFile('files')) {
             foreach ($request->file('files') as $index => $file) {
                 $filename = time() . '_' . $index . '_' . $file->getClientOriginalName();
 
-                // Simpan Fisik ke 'uploads/dokumen_persil'
+                // Simpan Fisik ke 'uploads/sengketa_persil'
                 $file->storeAs($this->storagePath, $filename, 'public');
 
                 // Simpan Database Media
                 Media::create([
                     'ref_table'  => $this->refTable,
-                    'ref_id'     => $dokumen->{$this->refIdName},
+                    'ref_id'     => $sengketa->{$this->refIdName},
                     'file_name'  => $filename,
                     'caption'    => $file->getClientOriginalName(),
                     'mime_type'  => $file->getClientMimeType(),
@@ -129,32 +133,32 @@ class DokumenPersilController extends Controller
             }
         }
 
-        return redirect()->route('dokumen_persil.index')->with('success', 'Data Dokumen berhasil diperbarui!');
+        return redirect()->route('sengketa_persil.index')->with('success', 'Data Sengketa berhasil diperbarui!');
     }
 
     /**
-     * Hapus Data Dokumen Beserta Semua Filenya
+     * Hapus Data Sengketa Beserta Semua Filenya
      */
     public function destroy(string $id)
     {
-        $dokumen = DokumenPersil::findOrFail($id);
+        $sengketa = SengketaPersil::findOrFail($id);
 
         $mediaItems = Media::where('ref_table', $this->refTable)
-                            ->where('ref_id', $dokumen->{$this->refIdName})
+                            ->where('ref_id', $sengketa->{$this->refIdName})
                             ->get();
 
         foreach ($mediaItems as $media) {
-            // Hapus Fisik dari 'uploads/dokumen_persil'
+            // Hapus Fisik dari 'uploads/sengketa_persil'
             Storage::disk('public')->delete($this->storagePath . '/' . $media->file_name);
             $media->delete();
         }
 
-        $dokumen->delete();
-        return redirect()->route('dokumen_persil.index')->with('success', 'Data Dokumen berhasil dihapus!');
+        $sengketa->delete();
+        return redirect()->route('sengketa_persil.index')->with('success', 'Data Sengketa berhasil dihapus!');
     }
 
     /**
-     * Hapus SATU File Dokumen
+     * Hapus SATU File Sengketa
      */
     public function deleteMedia($id)
     {
@@ -169,6 +173,6 @@ class DokumenPersilController extends Controller
 
         $media->delete();
 
-        return back()->with('success', 'File dokumen berhasil dihapus.');
+        return back()->with('success', 'File sengketa berhasil dihapus.');
     }
 }

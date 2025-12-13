@@ -7,6 +7,7 @@ use App\Http\Controllers\WargaController;
 use App\Http\Controllers\PersilController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DokumenPersilController;
+use App\Http\Controllers\SengketaPersilController;
 use App\Http\Controllers\JenisPenggunaanController;
 use App\Http\Controllers\ProfilePengembangController;
 
@@ -32,7 +33,9 @@ Route::middleware(['checkislogin'])->group(function () {
         // DASHBOARD
 
         // FULL AKSES (ADMIN)
-         Route::delete('dokumen_persil/media/{id}', [DokumenPersilController::class, 'deleteMedia'])->name('dokumen_persil.deleteMedia');
+        Route::delete('sengketa_persil/media/{id}', [SengketaPersilController::class, 'deleteMedia'])->name('sengketa_persil.deleteMedia');
+        Route::resource('sengketa_persil', SengketaPersilController::class);
+        Route::delete('dokumen_persil/media/{id}', [DokumenPersilController::class, 'deleteMedia'])->name('dokumen_persil.deleteMedia');
         Route::resource('dokumen_persil', DokumenPersilController::class);
         Route::delete('/persil/media/{id}', [PersilController::class, 'deleteMedia'])->name('persil.deleteMedia');
         Route::resource('persil', PersilController::class);

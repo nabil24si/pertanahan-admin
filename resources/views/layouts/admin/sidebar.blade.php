@@ -46,6 +46,13 @@
             </a>
         </li>
 
+        <li class="nav-item {{ request()->routeIs('sengketa_persil.*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('sengketa_persil.index') }}">
+                <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                <span class="menu-title">Sengketa Persil</span>
+            </a>
+        </li>
+
         <li class="nav-item nav-category">Master Data</li>
 
         <li class="nav-item {{ request()->routeIs('warga.*') ? 'active' : '' }}">
