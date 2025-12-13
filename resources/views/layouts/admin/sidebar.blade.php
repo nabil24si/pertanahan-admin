@@ -39,6 +39,13 @@
             </a>
         </li>
 
+         <li class="nav-item {{ request()->routeIs('dokumen_persil.*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('dokumen_persil.index') }}">
+                <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                <span class="menu-title">Dokumen Persil</span>
+            </a>
+        </li>
+
         <li class="nav-item nav-category">Master Data</li>
 
         <li class="nav-item {{ request()->routeIs('warga.*') ? 'active' : '' }}">
