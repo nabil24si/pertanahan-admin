@@ -1,20 +1,30 @@
 <?php
-
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Auth;
+
+use App\Models\Warga;
+use App\Models\Persil;
+use App\Models\PetaPersil;
 use Illuminate\Http\Request;
+use App\Models\DokumenPersil;
+use App\Models\SengketaPersil;
+use App\Models\JenisPenggunaan;
 
 class DashboardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        // if (!Auth::check()) {
-		//       return redirect()->route('auth.index');
-        // }
-        return view('pages.dashboard');
+        $data = [
+            'totalWarga'          => Warga::count(),
+            'totalPersil'         => Persil::count(),
+            'totalDokumenPersil'  => DokumenPersil::count(),
+            'totalSengketaPersil' => SengketaPersil::count(),
+            'totalPetaPersil'     => PetaPersil::count(),
+            'totalJenisPenggunaan'     => JenisPenggunaan::count(),
+            // Tambahkan data penggunaan di bawah jika diperlukan
+        ];
+
+        return view('pages.dashboard', $data);
     }
 
     /**

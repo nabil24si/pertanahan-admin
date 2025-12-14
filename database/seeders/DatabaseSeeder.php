@@ -14,8 +14,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            WargaSeeder::class,
-            PersilSeeder::class,
+            CreateWargaDummy::class,
+            CreatePersilDummy::class,
+            CreateJenisPenggunaanDummy::class,
             CreateDokumenPersilDummy::class,
             CreateSengketaPersilDummy::class,
 

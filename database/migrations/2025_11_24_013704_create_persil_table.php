@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('persil', function (Blueprint $table) {
-            $table->id('persil_id'); // Primary Key
+            $table->id('persil_id');                     // Primary Key
             $table->string('kode_persil', 50)->unique(); // Kode Unik Persil
-            $table->unsignedBigInteger('pemilik_warga_id'); // Foreign Key ke tabel warga
+            $table->unsignedBigInteger('pemilik_warga_id');
+
             $table->decimal('luas_m2', 10, 2)->nullable(); // Luas dalam m2
 
-            // PERUBAHAN DI SINI: Menggunakan tipe enum
-            $table->enum('penggunaan', ['Sawah', 'Kebun', 'Perumahan', 'Ruko', 'Lahan Kosong'])->nullable();
+            $table->unsignedBigInteger('penggunaan_id'); // Foreign Key ke tabel warga
+                                                         // PERUBAHAN DI SINI: Menggunakan tipe enum
 
             $table->string('alamat_lahan', 150)->nullable(); // Alamat lahan
             $table->string('rt', 5)->nullable();
@@ -26,12 +27,17 @@ return new class extends Migration
 
             $table->timestamps();
 
+            $table->foreign('penggunaan_id')
+                ->references('jenis_id') // sesuaikan dengan kolom PK di tabel Jenis
+                ->on('jenis_penggunaan')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             // Relasi ke tabel warga
             $table->foreign('pemilik_warga_id')
-                  ->references('warga_id') // sesuaikan dengan kolom PK di tabel warga
-                  ->on('warga')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
+                ->references('warga_id') // sesuaikan dengan kolom PK di tabel warga
+                ->on('warga')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

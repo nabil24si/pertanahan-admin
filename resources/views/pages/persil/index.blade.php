@@ -39,29 +39,6 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="input-group">
-                                        <span class="input-group-text bg-light"><i class="mdi mdi-filter"></i></span>
-                                        <select name="penggunaan" class="form-select" onchange="this.form.submit()">
-                                            <option value="">-- Semua Penggunaan --</option>
-                                            <option value="Sawah" {{ request('penggunaan') == 'Sawah' ? 'selected' : '' }}>
-                                                Sawah</option>
-                                            <option value="Kebun" {{ request('penggunaan') == 'Kebun' ? 'selected' : '' }}>
-                                                Kebun</option>
-                                            <option value="Perumahan"
-                                                {{ request('penggunaan') == 'Perumahan' ? 'selected' : '' }}>Perumahan
-                                            </option>
-                                            <option value="Ruko" {{ request('penggunaan') == 'Ruko' ? 'selected' : '' }}>
-                                                Ruko</option>
-                                            <option value="Lahan Kosong"
-                                                {{ request('penggunaan') == 'Lahan Kosong' ? 'selected' : '' }}>Lahan Kosong
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-
-
-
                                 @if (request('search') || request('penggunaan'))
                                     <div class="col-md-2">
                                         <a href="{{ route('persil.index') }}"
@@ -99,21 +76,7 @@
                                             </td>
                                             <td>{{ $item->luas_m2 }} m²</td>
                                             <td>
-                                                {{-- Logika Warna Badge --}}
-                                                @php
-                                                    $badgeClass = 'bg-secondary';
-                                                    if ($item->penggunaan == 'Sawah') {
-                                                        $badgeClass = 'bg-success';
-                                                    } elseif ($item->penggunaan == 'Kebun') {
-                                                        $badgeClass = 'bg-success';
-                                                    } elseif ($item->penggunaan == 'Perumahan') {
-                                                        $badgeClass = 'bg-info';
-                                                    } elseif ($item->penggunaan == 'Ruko') {
-                                                        $badgeClass = 'bg-warning text-dark';
-                                                    }
-                                                @endphp
-                                                <span
-                                                    class="badge rounded-pill {{ $badgeClass }}">{{ $item->penggunaan }}</span>
+                                                 {{ $item->jenis ? $item->jenis->nama_penggunaan : '-' }}
                                             </td>
                                             <td class="text-wrap" style="max-width: 200px;">{{ $item->alamat_lahan }}</td>
                                             <td>{{ $item->rt }} / {{ $item->rw }}</td>

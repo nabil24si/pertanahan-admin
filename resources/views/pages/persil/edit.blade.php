@@ -63,12 +63,12 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Penggunaan</label>
                                 <div class="col-sm-9">
-                                    <select name="penggunaan" class="form-select" required>
+                                    <select name="penggunaan_id" class="form-select" required>
                                         <option value="">-- Pilih Penggunaan --</option>
-                                        @foreach (['Sawah', 'Kebun', 'Perumahan', 'Ruko', 'Lahan Kosong'] as $opsi)
-                                            <option value="{{ $opsi }}"
-                                                {{ old('penggunaan', $dataPersil->penggunaan) == $opsi ? 'selected' : '' }}>
-                                                {{ $opsi }}
+                                        @foreach ($dataJenis as $jenis)
+                                            <option value="{{ $jenis->jenis_id }}"
+                                                {{ old('penggunaan_id', $dataPersil->penggunaan_id) == $jenis->jenis_id ? 'selected' : '' }}>
+                                                {{ $jenis->nama_penggunaan }}
                                             </option>
                                         @endforeach
                                     </select>

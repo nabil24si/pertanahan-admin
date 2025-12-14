@@ -33,7 +33,7 @@
                                     </tr>
                                     <tr>
                                         <th>Penggunaan</th>
-                                        <td>: <span class="badge badge-gradient-info">{{ $persil->penggunaan }}</span></td>
+                                        <td>: <span class="badge badge-gradient-info">{{ $persil->jenis ? $persil->jenis->nama_penggunaan : 'Tidak diketahui' }}</span></td>
                                     </tr>
                                     <tr>
                                         <th>Alamat</th>

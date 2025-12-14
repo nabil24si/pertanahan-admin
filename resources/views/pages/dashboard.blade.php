@@ -1,4 +1,5 @@
 @extends('layouts.admin.app')
+
 @section('content')
     {{-- Start Main Content --}}
     <div class="content-wrapper">
@@ -9,12 +10,12 @@
                 </span> Dashboard
             </h3>
             <div>
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
             </div>
-        @endif
-    </div>
             <nav aria-label="breadcrumb">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item active" aria-current="page">
@@ -23,44 +24,108 @@
                 </ul>
             </nav>
         </div>
+
+        {{-- BARIS 1: DATA UTAMA STATISTIK --}}
         <div class="row">
+            {{-- WIDGET 1: TOTAL WARGA --}}
             <div class="col-md-4 stretch-card grid-margin">
                 <div class="card bg-gradient-danger card-img-holder text-white">
                     <div class="card-body">
                         <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                        <h4 class="font-weight-normal mb-3">Weekly Sales <i
-                                class="mdi mdi-chart-line mdi-24px float-end"></i>
+                        <h4 class="font-weight-normal mb-3">Total Data Warga <i
+                                class="mdi mdi-account-multiple mdi-24px float-end"></i>
                         </h4>
-                        <h2 class="mb-5">$ 15,0000</h2>
-                        <h6 class="card-text">Increased by 60%</h6>
+                        <h2 class="mb-5">{{ $totalWarga ?? 0 }}</h2>
+                        <h6 class="card-text">Data Penduduk yang Terdaftar</h6>
                     </div>
                 </div>
             </div>
+
+            {{-- WIDGET 2: TOTAL PERSIL --}}
             <div class="col-md-4 stretch-card grid-margin">
                 <div class="card bg-gradient-info card-img-holder text-white">
                     <div class="card-body">
                         <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                        <h4 class="font-weight-normal mb-3">Weekly Orders <i
-                                class="mdi mdi-bookmark-outline mdi-24px float-end"></i>
+                        <h4 class="font-weight-normal mb-3">Total Persil Terdaftar <i
+                                class="mdi mdi-layers mdi-24px float-end"></i>
                         </h4>
-                        <h2 class="mb-5">45,6334</h2>
-                        <h6 class="card-text">Decreased by 10%</h6>
+                        <h2 class="mb-5">{{ $totalPersil ?? 0 }}</h2>
+                        <h6 class="card-text">Jumlah Keseluruhan Lahan</h6>
                     </div>
                 </div>
             </div>
+
+            {{-- WIDGET 3: TOTAL DOKUMEN PERSIL --}}
             <div class="col-md-4 stretch-card grid-margin">
                 <div class="card bg-gradient-success card-img-holder text-white">
                     <div class="card-body">
                         <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                        <h4 class="font-weight-normal mb-3">Visitors Online <i
-                                class="mdi mdi-diamond mdi-24px float-end"></i>
+                        <h4 class="font-weight-normal mb-3">Total Dokumen Lahan <i
+                                class="mdi mdi-file-document-box mdi-24px float-end"></i>
                         </h4>
-                        <h2 class="mb-5">95,5741</h2>
-                        <h6 class="card-text">Increased by 5%</h6>
+                        <h2 class="mb-5">{{ $totalDokumenPersil ?? 0 }}</h2>
+                        <h6 class="card-text">Sertifikat, AJB, dll.</h6>
                     </div>
                 </div>
             </div>
         </div>
+
+        {{-- BARIS 2: DATA TAMBAHAN STATISTIK --}}
+        <div class="row">
+            {{-- WIDGET 4: TOTAL SENGKETA PERSIL --}}
+            <div class="col-md-4 stretch-card grid-margin">
+                <div class="card bg-gradient-warning card-img-holder text-white">
+                    <div class="card-body">
+                        <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                        <h4 class="font-weight-normal mb-3">Sengketa (Diproses) <i
+                                class="mdi mdi-alert-octagon mdi-24px float-end"></i>
+                        </h4>
+                        @php
+                            // Asumsi Anda juga mengirimkan $sengketaDiproses dari Controller
+                            $sengketaDiproses = $sengketaDiproses ?? 0;
+                        @endphp
+                        <h2 class="mb-5">{{ $totalSengketaPersil ?? 0 }}</h2>
+                        <h6 class="card-text">{{ $sengketaDiproses }} Kasus Sedang Diproses</h6>
+                    </div>
+                </div>
+            </div>
+
+            {{-- WIDGET 5: TOTAL PETA PERSIL --}}
+            <div class="col-md-4 stretch-card grid-margin">
+                <div class="card bg-gradient-primary card-img-holder text-white">
+                    <div class="card-body">
+                        <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                        <h4 class="font-weight-normal mb-3">Data Peta Persil <i
+                                class="mdi mdi-map-marker-radius mdi-24px float-end"></i>
+                        </h4>
+                        <h2 class="mb-5">{{ $totalPetaPersil ?? 0 }}</h2>
+                        <h6 class="card-text">Total Lahan yang Sudah Dipetakan</h6>
+                    </div>
+                </div>
+            </div>
+
+            {{-- WIDGET 6: JENIS PENGGUNAAN Lahan (Perlu Query di Controller) --}}
+            <div class="col-md-4 stretch-card grid-margin">
+                <div class="card bg-gradient-secondary card-img-holder text-dark">
+                    <div class="card-body">
+                        <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                        <h4 class="font-weight-normal mb-3">Jenis Penggunaan Lahan <i
+                                class="mdi mdi-factory mdi-24px float-end"></i>
+                        </h4>
+                        @php
+                            // Asumsi Anda mengirimkan $jenisPenggunaan (misal array ['Sawah' => 50, 'Perumahan' => 30])
+                            $jenis = $jenis ?? [];
+                            $mostUsed = !empty($jenis) ? key($jenis) : 'N/A';
+                        @endphp
+                        <h2 class="mb-5">{{ count($jenis) }} Jenis</h2>
+                        <h6 class="card-text">Terbanyak: {{ $mostUsed }}</h6>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        {{-- GRAFIK & TABEL (Bagian ini tidak saya ubah, menggunakan template lama) --}}
         <div class="row">
             <div class="col-md-7 grid-margin stretch-card">
                 <div class="card">

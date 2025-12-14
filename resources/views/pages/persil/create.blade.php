@@ -58,15 +58,15 @@
 
                             {{-- PENGGUNAAN --}}
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Penggunaan</label>
+                                <label class="col-sm-3 col-form-label">Jenis Penggunaan</label>
                                 <div class="col-sm-9">
-                                    <select name="penggunaan" class="form-select" required>
+                                    <select name="penggunaan_id" class="form-select" required>
                                         <option value="">-- Pilih Penggunaan --</option>
-                                        <option value="Sawah" {{ old('penggunaan') == 'Sawah' ? 'selected' : '' }}>Sawah</option>
-                                        <option value="Kebun" {{ old('penggunaan') == 'Kebun' ? 'selected' : '' }}>Kebun</option>
-                                        <option value="Perumahan" {{ old('penggunaan') == 'Perumahan' ? 'selected' : '' }}>Perumahan</option>
-                                        <option value="Ruko" {{ old('penggunaan') == 'Ruko' ? 'selected' : '' }}>Ruko</option>
-                                        <option value="Lahan Kosong" {{ old('penggunaan') == 'Lahan Kosong' ? 'selected' : '' }}>Lahan Kosong</option>
+                                        @foreach ($dataJenis as $j)
+                                            <option value="{{ $j->jenis_id }}" {{ old('penggunaan_id') == $j->jenis_id ? 'selected' : '' }}>
+                                                {{ $j->nama_penggunaan }} 
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
