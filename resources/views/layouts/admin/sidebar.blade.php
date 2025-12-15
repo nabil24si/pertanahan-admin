@@ -1,4 +1,3 @@
-
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav flex-column">
 
@@ -25,40 +24,48 @@
 
         <li class="nav-item nav-category">Data Wilayah</li>
 
-        <li class="nav-item {{ request()->routeIs('persil.*') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('persil.index') }}">
-                <i class="mdi mdi-map-marker-radius menu-icon"></i>
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('persil.index') ? 'active' : '' }}"
+                href="{{ route('persil.index') }}">
+                <i class="mdi mdi-table-large menu-icon"></i>
                 <span class="menu-title">Data Persil</span>
             </a>
         </li>
 
-        <li class="nav-item {{ request()->routeIs('jenispenggunaan.*') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('jenispenggunaan.index') }}">
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('jenispenggunaan.index') ? 'active' : '' }}"
+                href="{{ route('jenispenggunaan.index') }}">
                 <i class="mdi mdi-format-list-bulleted menu-icon"></i>
                 <span class="menu-title">Jenis Penggunaan</span>
             </a>
         </li>
 
-         <li class="nav-item {{ request()->routeIs('dokumen_persil.*') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('dokumen_persil.index') }}">
-                <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('dokumen_persil.index') ? 'active' : '' }}"
+                href="{{ route('dokumen_persil.index') }}">
+                <i class="mdi mdi-file-document menu-icon"></i>
                 <span class="menu-title">Dokumen Persil</span>
             </a>
         </li>
 
-        <li class="nav-item {{ request()->routeIs('sengketa_persil.*') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('sengketa_persil.index') }}">
-                <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('sengketa_persil.index') ? 'active' : '' }}"
+                href="{{ route('sengketa_persil.index') }}">
+                <i class="mdi mdi-cards-variant menu-icon"></i>
                 <span class="menu-title">Sengketa Persil</span>
             </a>
         </li>
 
-        <li class="nav-item {{ request()->routeIs('peta_persil.*') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('peta_persil.index') }}">
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('peta_persil.index') ? 'active' : '' }}"
+                href="{{ route('peta_persil.index') }}">
                 <i class="mdi mdi-map-marker-radius menu-icon"></i>
                 <span class="menu-title">Peta Persil</span>
             </a>
         </li>
+
+
+
 
         <li class="nav-item nav-category">Master Data</li>
 
@@ -88,3 +95,44 @@
         </li>
     </ul>
 </nav>
+<style>
+    /* ===============================
+   SIDEBAR ACTIVE FIX (FINAL)
+   =============================== */
+
+    /* menu normal */
+    .sidebar .nav .nav-link {
+        background: transparent;
+    }
+
+    /* teks menu normal */
+    .sidebar .nav .nav-link .menu-title {
+        color: #6c7293;
+    }
+
+    /* icon normal */
+    .sidebar .nav .nav-link i {
+        color: #6c7293;
+    }
+
+    /* ===== MENU AKTIF SAJA ===== */
+    .sidebar .nav .nav-link.active {
+        background: linear-gradient(to right, #7b61ff, #6246ea);
+        border-radius: 8px;
+    }
+
+    /* teks menu aktif */
+    .sidebar .nav .nav-link.active .menu-title {
+        color: #ffffff !important;
+    }
+
+    /* icon menu aktif */
+    .sidebar .nav .nav-link.active i {
+        color: #ffffff !important;
+    }
+
+    /* pastikan menu lain TIDAK ikut aktif */
+    .sidebar .nav .nav-item .nav-link:not(.active) {
+        background: transparent !important;
+    }
+</style>

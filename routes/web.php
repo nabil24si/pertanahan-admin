@@ -1,16 +1,16 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DokumenPersilController;
+use App\Http\Controllers\JenisPenggunaanController;
+use App\Http\Controllers\PersilController;
+use App\Http\Controllers\PetaPersilController;
+use App\Http\Controllers\ProfilePengembangController;
+use App\Http\Controllers\SengketaPersilController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WargaController;
-use App\Http\Controllers\PersilController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PetaPersilController;
-use App\Http\Controllers\DokumenPersilController;
-use App\Http\Controllers\SengketaPersilController;
-use App\Http\Controllers\JenisPenggunaanController;
-use App\Http\Controllers\ProfilePengembangController;
+use Illuminate\Support\Facades\Route;
 
 // =============================
 // PUBLIC (TANPA LOGIN)
@@ -77,6 +77,26 @@ Route::middleware(['checkislogin'])->group(function () {
             'create',
             'store',
         ]);
+        Route::resource('dokumen_persil', DokumenPersilController::class)->only([
+            'index',
+            'show',
+            'create',
+            'store',
+        ]);
+
+        Route::resource('sengketa_persil', SengketaPersilController::class)->only([
+            'index',
+            'show',
+            'create',
+            'store',
+        ]);
+        Route::resource('peta_persil', PetaPersilController::class)->only([
+            'index',
+            'show',
+            'create',
+            'store',
+        ]);
+
     });
 });
 

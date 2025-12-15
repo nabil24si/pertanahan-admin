@@ -143,7 +143,7 @@
                         </div>
 
                         <div class="mt-4 d-flex justify-content-end">
-                            {{ $dataWarga->withQueryString()->links('pagination::SIMPLE-bootstrap-5') }}
+                            {{ $dataWarga->withQueryString()->links('pagination::simple-bootstrap-5') }}
                         </div>
                     </div>
                 </div>

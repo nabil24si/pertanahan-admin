@@ -5,7 +5,7 @@
         <div class="page-header d-flex justify-content-between align-items-center">
             <h3 class="page-title">
                 <span class="page-title-icon bg-gradient-danger text-white me-2">
-                    <i class="mdi mdi-alert-octagon"></i>
+                    <i class="mdi mdi-file-document menu-icon"></i>
                 </span>
                 Data Dokumen Persil
             </h3>

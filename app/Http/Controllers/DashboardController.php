@@ -1,13 +1,13 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Warga;
+use App\Models\DokumenPersil;
+use App\Models\JenisPenggunaan;
 use App\Models\Persil;
 use App\Models\PetaPersil;
-use Illuminate\Http\Request;
-use App\Models\DokumenPersil;
 use App\Models\SengketaPersil;
-use App\Models\JenisPenggunaan;
+use App\Models\Warga;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
@@ -20,8 +20,13 @@ class DashboardController extends Controller
             'totalDokumenPersil'  => DokumenPersil::count(),
             'totalSengketaPersil' => SengketaPersil::count(),
             'totalPetaPersil'     => PetaPersil::count(),
-            'totalJenisPenggunaan'     => JenisPenggunaan::count(),
-            // Tambahkan data penggunaan di bawah jika diperlukan
+            // 🔥 INI YANG BENAR
+            'sengketaDiproses'    => SengketaPersil::where('status', 'diproses')->count(),
+            'jenisPenggunaan'     => JenisPenggunaan::select('nama_penggunaan')
+                ->selectRaw('COUNT(*) as total')
+                ->groupBy('nama_penggunaan')
+                ->pluck('total', 'nama_penggunaan')
+                ->toArray(),
         ];
 
         return view('pages.dashboard', $data);
