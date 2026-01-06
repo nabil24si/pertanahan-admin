@@ -1,8 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\JenisPenggunaan;
+use Illuminate\Http\Request;
 
 class JenisPenggunaanController extends Controller
 {
@@ -11,9 +11,9 @@ class JenisPenggunaanController extends Controller
      */
     public function index(Request $request)
     {
-        $searchableColumns = ['nama_penggunaan','keterangan'];
+        $searchableColumns           = ['nama_penggunaan', 'keterangan'];
         $data['dataJenisPenggunaan'] = JenisPenggunaan::search($request, $searchableColumns)->simplePaginate(10)
-                        ->onEachSide(2) ;
+            ->onEachSide(2);
         return view('pages.jenispenggunaan.index', $data);
     }
 
@@ -22,7 +22,7 @@ class JenisPenggunaanController extends Controller
      */
     public function create()
     {
-       return view('pages.jenispenggunaan.create');
+        return view('pages.jenispenggunaan.create');
     }
 
     /**
@@ -31,12 +31,12 @@ class JenisPenggunaanController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-    'nama_penggunaan' => 'required|string|max:50',
-    'keterangan' => 'required|string|max:100',
-]);
+            'nama_penggunaan' => 'required|string|max:50',
+            'keterangan'      => 'required|string|max:100',
+        ]);
 
-$jenisPenggunaan = JenisPenggunaan::create($validated);
-return redirect()->route('jenispenggunaan.index')->with('success', 'Penambahan Data Berhasil!');
+        $jenisPenggunaan = JenisPenggunaan::create($validated);
+        return redirect()->route('jenispenggunaan.index')->with('success', 'Penambahan Data Berhasil!');
     }
 
     /**
@@ -52,8 +52,8 @@ return redirect()->route('jenispenggunaan.index')->with('success', 'Penambahan D
      */
     public function edit(string $id)
     {
-         $data['dataJenisPenggunaan'] = JenisPenggunaan::findOrFail($id);
-    return view('pages.jenispenggunaan.edit', $data);
+        $data['dataJenisPenggunaan'] = JenisPenggunaan::findOrFail($id);
+        return view('pages.jenispenggunaan.edit', $data);
     }
 
     /**
@@ -61,15 +61,15 @@ return redirect()->route('jenispenggunaan.index')->with('success', 'Penambahan D
      */
     public function update(Request $request, string $id)
     {
-    $jenis_id = $id;
-    $jenisPenggunaan = JenisPenggunaan::findOrFail($jenis_id);
+        $jenis_id        = $id;
+        $jenisPenggunaan = JenisPenggunaan::findOrFail($jenis_id);
 
-    $jenisPenggunaan->nama_penggunaan = $request->nama_penggunaan;
-    $jenisPenggunaan->keterangan = $request->keterangan;
+        $jenisPenggunaan->nama_penggunaan = $request->nama_penggunaan;
+        $jenisPenggunaan->keterangan      = $request->keterangan;
 
-    $jenisPenggunaan->save();
+        $jenisPenggunaan->save();
 
-    return redirect()->route('jenispenggunaan.index')->with('success', 'Perubahan Data Berhasil!');
+        return redirect()->route('jenispenggunaan.index')->with('success', 'Perubahan Data Berhasil!');
     }
 
     /**
@@ -77,9 +77,9 @@ return redirect()->route('jenispenggunaan.index')->with('success', 'Penambahan D
      */
     public function destroy(string $id)
     {
-         $jenisPenggunaan = JenisPenggunaan::findOrFail($id);
+        $jenisPenggunaan = JenisPenggunaan::findOrFail($id);
 
-    $jenisPenggunaan->delete();
-    return redirect()->route('jenispenggunaan.index')->with('success', 'Data berhasil dihapus');
+        $jenisPenggunaan->delete();
+        return redirect()->route('jenispenggunaan.index')->with('success', 'Data berhasil dihapus');
     }
 }

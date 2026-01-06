@@ -1,13 +1,12 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\DokumenPersil;
 use App\Models\Media;
 use App\Models\Persil;
-use App\Models\DokumenPersil;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 
 class DokumenPersilController extends Controller
 {
@@ -18,15 +17,14 @@ class DokumenPersilController extends Controller
     // Nama Primary Key di tabel DokumenPersil
     private $refIdName = 'dokumen_id';
 
-
     public function index(Request $request)
     {
         $filterableColumns = ['jenis_dokumen'];
         $searchableColumns = ['nomor', 'keterangan'];
 
         $data['dataDokumen'] = DokumenPersil::with('persil')
-            // Asumsi Anda memiliki scope filter dan search di model DokumenPersil
-            // ->filter($request, $filterableColumns)
+        // Asumsi Anda memiliki scope filter dan search di model DokumenPersil
+        // ->filter($request, $filterableColumns)
             ->search($request, $searchableColumns)
             ->latest()
             ->simplePaginate(10)
@@ -45,11 +43,11 @@ class DokumenPersilController extends Controller
     {
         // 1. Validasi
         $validated = $request->validate([
-            'persil_id'       => 'required|exists:persil,persil_id',
-            'jenis_dokumen'   => 'required|string|max:255',
-            'nomor'           => 'nullable|string|max:255',
-            'keterangan'      => 'nullable|string',
-            'files.*'         => 'nullable|mimes:jpg,jpeg,png,pdf,docx|max:5120', // Validasi File
+            'persil_id'     => 'required|exists:persil,persil_id',
+            'jenis_dokumen' => 'required|string|max:255',
+            'nomor'         => 'nullable|string|max:255',
+            'keterangan'    => 'nullable|string',
+            'files.*'       => 'nullable|mimes:jpg,jpeg,png,pdf,docx|max:5120', // Validasi File
         ]);
 
         // 2. Simpan Data Dokumen (Buang 'files')
@@ -99,11 +97,11 @@ class DokumenPersilController extends Controller
         $dokumen = DokumenPersil::findOrFail($id);
 
         $validated = $request->validate([
-            'persil_id'       => 'required|exists:persil,persil_id',
-            'jenis_dokumen'   => 'required|string|max:255',
-            'nomor'           => 'nullable|string|max:255',
-            'keterangan'      => 'nullable|string',
-            'files.*'         => 'nullable|mimes:jpg,jpeg,png,pdf,docx|max:5120',
+            'persil_id'     => 'required|exists:persil,persil_id',
+            'jenis_dokumen' => 'required|string|max:255',
+            'nomor'         => 'nullable|string|max:255',
+            'keterangan'    => 'nullable|string',
+            'files.*'       => 'nullable|mimes:jpg,jpeg,png,pdf,docx|max:5120',
         ]);
 
         // 1. Update Data Teks
@@ -140,8 +138,8 @@ class DokumenPersilController extends Controller
         $dokumen = DokumenPersil::findOrFail($id);
 
         $mediaItems = Media::where('ref_table', $this->refTable)
-                            ->where('ref_id', $dokumen->{$this->refIdName})
-                            ->get();
+            ->where('ref_id', $dokumen->{$this->refIdName})
+            ->get();
 
         foreach ($mediaItems as $media) {
             // Hapus Fisik dari 'uploads/dokumen_persil'

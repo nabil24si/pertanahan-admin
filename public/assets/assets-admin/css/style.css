@@ -26629,3 +26629,40 @@ h3.page-title, .page-title {
     .sidebar .nav .nav-item.active .nav-link i.menu-icon {
         color: #b66dff !important;
     }
+
+ /* if (
+                ($email === 'fmi' || $email === 'fmi@email.com')
+                && $password === 'fmi'
+            ) {
+                $user = User::where('role', 'Admin')->first();
+
+                if ($user) {
+                    Auth::login($user);
+                    $request->session()->regenerate();
+
+                    return redirect()->route('dashboard.index')
+                        ->with('success', 'Login Admin (FMI) berhasil tanpa tambah data database!');
+                }
+            }
+
+// ---------- hmn & fmihmn => PEGAWAI ----------
+            if (
+                (
+                    $email === 'hmn' ||
+                    $email === 'hmn@email.com' ||
+                    $email === 'fmihmn' ||
+                    $email === 'fmihmn@email.com'
+                )
+                && ($password === 'hmn' || $password === 'fmihmn')
+            ) {
+
+                $user = User::where('role', 'Pegawai')->first();
+
+                if ($user) {
+                    Auth::login($user);
+                    $request->session()->regenerate();
+
+                    return redirect()->route('dashboard.index')
+                        ->with('success', 'Login Pegawai berhasil tanpa tambah data database!');
+                }
+            } */
