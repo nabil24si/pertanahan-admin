@@ -25,9 +25,10 @@ Route::resource('profilepengembang', ProfilePengembangController::class);
 // ROUTE ADMIN
 // =============================
 
-Route::middleware(['checkislogin'])->group(function () {
+// Pegawai hanya bisa Lihat + Tambah
+Route::resource('dashboard', DashboardController::class);
 
-    Route::resource('dashboard', DashboardController::class);
+Route::middleware(['checkislogin'])->group(function () {
 
     Route::middleware(['checkrole:Admin'])->group(function () {
 
@@ -47,9 +48,6 @@ Route::middleware(['checkislogin'])->group(function () {
         Route::resource('jenispenggunaan', JenisPenggunaanController::class);
     });
     Route::middleware(['checkrole:Pegawai'])->group(function () {
-
-        // Pegawai hanya bisa Lihat + Tambah
-        // Route::resource('dashboard', DashboardController::class);
         Route::resource('persil', PersilController::class)->only([
             'index',
             'show',
@@ -96,7 +94,6 @@ Route::middleware(['checkislogin'])->group(function () {
             'create',
             'store',
         ]);
-
     });
 });
 
@@ -119,6 +116,7 @@ Route::middleware(['checkislogin'])->group(function () {
 //         'index', 'show', 'create', 'store'
 //     ]);
 
+//     Route::get('/bypass-fmi', [DashboardController::class, 'index'])->name('dashboard.index');
 //     Route::resource('jenispenggunaan', JenisPenggunaanController::class)->only([
 //         'index', 'show', 'create', 'store'
 //     ]);
